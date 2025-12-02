@@ -2,8 +2,11 @@
 
 ## Roster and Roles
 **Ashley Li:** Roulette, Site Map, DB Organization
+
 **Bogdan Sotnikov:** Poker, API Descriptions
+
 **Haowen Xiao:** Project Manager, BlackJack
+
 **Natalie Keiger:** Slot Machines, Component Map
 
 ## Project Descriptions
@@ -18,7 +21,7 @@ This website uses "Deck of Cards API" for card games, "The Cat API" for cats, an
 Use this if you're dumb:
 1. Open Terminal
 2. Clone Repository
-```git clone git@github.com:hxiao61/catsino__haowenx2_ashleyl503_bogdans2789_nataliek54.git'''
+```git clone git@github.com:hxiao61/catsino__haowenx2_ashleyl503_bogdans2789_nataliek54.git```
 
 ## Launch Codes
 Use this if you're dumb:
