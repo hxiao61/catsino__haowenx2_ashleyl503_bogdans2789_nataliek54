@@ -21,14 +21,18 @@ This website uses "Deck of Cards API" for card games, "The Cat API" for cats, an
 Use this if you're dumb:
 1. Open Terminal
 2. Clone Repository
+
 ```git clone git@github.com:hxiao61/catsino__haowenx2_ashleyl503_bogdans2789_nataliek54.git```
 
 ## Launch Codes
 Use this if you're dumb:
 1. Go into the repository
+
 ```cd catsino__haowenx2_ashleyl503_bogdans2789_nataliek54```
 2. Install requirements
+
 ```pip install -r requirements.txt```
 3. Launch
+
 ```python app.py```
 4. Open in browser in `http://localhost:5000/`
