@@ -7,6 +7,27 @@
   <link rel='stylesheet' href='../static/css/slots.css'>
 </head>
 <body>
+  <!-- IF YOU NEED THE NAV BAR COPY EVERYTHING UNTIL THE NEXT COMMENT -->
+
+  <div class="navbar">
+    <ul>
+      <li> <a href="store"> Store </a> </li>
+      <li>
+        <div class="dropdown">
+          <button class="drop"> Games! </button>
+          <div class="drop-content">
+            <a href="poker"> Poker </a>
+            <a href="slots"> Slots </a>
+            <a href="roulette"> Roulette </a>
+            <a href="blackjack"> Blackjack </a>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+<!-- NEXT COMMENT STOP COPYING -->
   <div class="titlebox">
     <h1 class="title">Catsino: Slot Machine! </h1>
   </div>
@@ -14,6 +35,11 @@
     <div class="slot-machine">
       <div class="reel" id="reel1">
         <div class="symbol-container" id="symbol-container1">
+          <div class="symbol">😺</div>
+          <div class="symbol">😸</div>
+          <div class="symbol">😻</div>
+          <div class="symbol">🙀</div>
+          <div class="symbol">😼</div>
           <div class="symbol">😺</div>
           <div class="symbol">😸</div>
           <div class="symbol">😻</div>
@@ -38,10 +64,20 @@
           <div class="symbol">😻</div>
           <div class="symbol">🙀</div>
           <div class="symbol">😼</div>
+          <div class="symbol">😺</div>
+          <div class="symbol">😸</div>
+          <div class="symbol">😻</div>
+          <div class="symbol">🙀</div>
+          <div class="symbol">😼</div>
         </div>
       </div>
       <div class="reel" id="reel3">
         <div class="symbol-container" id="symbol-container3">
+          <div class="symbol">😺</div>
+          <div class="symbol">😸</div>
+          <div class="symbol">😻</div>
+          <div class="symbol">🙀</div>
+          <div class="symbol">😼</div>
           <div class="symbol">😺</div>
           <div class="symbol">😸</div>
           <div class="symbol">😻</div>
@@ -62,6 +98,7 @@
     <div class="spendtxt">
       <p class="cost"> Cost to spin: 10 🐟 </p>
       <p class="cost"> Current amount: {{current}} </p>
+      <p class="cost"> Amount won: {{won}} </p>
     </div>
   </div>
 
