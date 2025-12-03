@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <link rel="stylesheet"
+      type="text/css"
+      href="/static/css/profile.css">
+  </head>
+
+  <nav>
+    <a href='/' class="back">&#8592;</a>
+    <a href='/logout' class="logout">Logout</a>
+  </nav>
+
+  <body>
+
+    <br><br>
+    <div class='PFP'>
+      <div id='pic'>
+        <img src={{ pfp }} alt="pfp" class='image'>
+      </div>
+
+      <div id='edit'>
+        {% if own_profile %}
+          {{ edit | safe }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class='main'>
+      <h1> {{ username }} </h1>
+      <p>
+        {{ badge }} <br>
+        Times Contributed: {{ times_cont }}
+      </p>
+      <h3 id="contributions"> Contributions </h3>
+      <p> {{ if_conts | safe }} </p>
+      <div class="lists">
+        <div class="col">
+          <h3>Authored</h3>
+          <ul>
+            {% for story in contributions[0] %}
+              <li> <a href={{ story[1] }}> {{ story[0] }} </a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Edited</h3>
+          <ul>
+            {% for story in contributions[1] %}
+              <li> <a href={{ story[1] }}> {{ story[0] }} </a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+  <footer>
+
+  </footer>
+
+</html>

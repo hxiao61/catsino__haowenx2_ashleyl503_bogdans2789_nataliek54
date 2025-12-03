@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <link rel="stylesheet"
+      type="text/css"
+      href="/static/css/login.css">
+  </head>
+
+  <body>
+    {% if not normal %}
+      <a href="/login"> X </a>
+    {% endif %}
+    <div id="head">
+      <h1>
+        Login
+      </h1>
+    </div>
+
+    <div id="main">
+
+      <div id="middle">
+        {% if normal %}
+          <p id="prompt"> Please &nbsp enter &nbsp your &nbsp username &nbsp and &nbsp password &nbsp below: </p>
+
+          <form method='POST' action="/login">
+            <p>
+              {{ error | safe }}
+              USERNAME:
+            </p>
+            <input type="text" name="username" required>
+            <br>
+            <p> PASSWORD: </p>
+            <input type="password" name="password" required>
+            <br><br>
+            <input type="submit" name="sub1" class="sub1" value="Submit">
+          </form>
+
+          <br>
+
+          <form method='POST' action="/login">
+            <input type="hidden" name="forgot">
+            <button type='submit' name='forgot' id="forgot">
+              Forgot Password
+            </button>
+          </form>
+
+          <br>
+
+          <button onclick="location.href='/register'" id="register">Register</button>
+        {% else %}
+          <p id="prompt"> {{ prompt | safe }} </p>
+          <p> {{ error | safe }} </p>
+          <br>
+          <form method='POST' action="/login">
+            {{ request | safe }}
+          </form>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </body>
+
+  <footer>
+
+  </footer>
+
+</html>
