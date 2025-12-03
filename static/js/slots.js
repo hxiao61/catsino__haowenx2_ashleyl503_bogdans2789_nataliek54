@@ -9,7 +9,7 @@ const resultMessage = document.getElementById("resultMessage");
 const confettiContainer = document.getElementById("confetti");
 
 const symbols = ["😺", "😸", "😻", "🙀", "😼"];
-const spinDuration = 1000;
+const spinDuration = 500;
 let isSpinning = false;
 
 const spinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // Spin effect
@@ -44,7 +44,7 @@ function checkResult() {
 
   if (symbol1 === symbol2 && symbol2 === symbol3) {
     winSound.play();
-    launchConfetti(); 
+    launchConfetti();
   } else {
     resultMessage.textContent = "";
     resultMessage.classList.add("show-message");
