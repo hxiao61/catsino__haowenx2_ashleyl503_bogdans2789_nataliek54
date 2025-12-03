@@ -9,29 +9,28 @@ const resultMessage = document.getElementById("resultMessage");
 const confettiContainer = document.getElementById("confetti");
 
 const symbols = ["😺", "😸", "😻", "🙀", "😼"];
-const spinDuration = 500; // Spin duration reduced to 500ms for instant spin
+const spinDuration = 1000;
 let isSpinning = false;
 
-const spinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // Spin sound effect
-const winSound = new Audio("https://www.fesliyanstudios.com/play-mp3/380"); // Win sound effect
+const spinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // Spin effect
+const winSound = new Audio("https://www.fesliyanstudios.com/play-mp3/380"); // Win effect
 
 handle.addEventListener("click", () => {
   if (isSpinning) return;
   isSpinning = true;
 
-  //resultMessage.classList.remove("show-message", "win-effect");
-  clearConfetti(); // Clear previous confetti
+  clearConfetti();
 
   spinSound.play();
 
-  // Randomize spin for each reel
+  // randomize
   reels.forEach((reel) => {
     const randomStop = Math.floor(Math.random() * symbols.length) * -100;
     reel.style.transition = "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
     reel.style.transform = `translateY(${randomStop}px)`;
   });
 
-  // Check result after all reels stop
+  // check
   setTimeout(() => {
     checkResult();
     isSpinning = false;
@@ -44,10 +43,8 @@ function checkResult() {
   const symbol3 = getSymbolAtStop(reels[2]);
 
   if (symbol1 === symbol2 && symbol2 === symbol3) {
-    //resultMessage.textContent = "You Win!";
     winSound.play();
-    //resultMessage.classList.add("show-message", "win-effect");
-    launchConfetti(); // Launch confetti when winning
+    launchConfetti(); 
   } else {
     resultMessage.textContent = "";
     resultMessage.classList.add("show-message");
