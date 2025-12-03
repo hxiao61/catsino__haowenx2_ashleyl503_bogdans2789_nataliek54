@@ -18,6 +18,8 @@ c.execute("CREATE TABLE IF NOT EXISTS story_base(path TEXT, title TEXT, content 
 db.commit()
 db.close()
 
+pfps = ['https://cdn2.thecatapi.com/images/a20.jpg']
+
 # HTML PAGES
 # LANDING PAGE
 @app.route('/')
@@ -32,13 +34,7 @@ def login():
     if request.method == 'POST':
         usernames = [row[0] for row in fetch("user_base", "TRUE", "username")]
         # FORGOT PASSWORD
-        if "forgot" in request.form:
-            return render_template("login.html",
-                normal=False,
-                prompt="Please &nbsp enter &nbsp your &nbsp username &nbsp below:",
-                request="""<input type='Text' name='f_user'> <br><br>
-                <input type='Submit' name='sub1' class='sub1' value='Submit'>""")
-        elif "f_user" in request.form:
+        if "f_user" in request.form:
             if request.form['f_user'] in usernames:
                 session['question'] = random.randint(1,5) # change range when we have a certain number of questions
                 session['username'] = request.form['f_user']
@@ -139,14 +135,6 @@ def profile(u_rowid):
         edit = f"""<form method='POST' action={u_rowid}>
         <input type='Image' src='/static/edit.png' name='Change PFP'>
         </form>"""
-
-    # sets badge/title
-    if u_data[2] < 5:
-        badge = "Newbie"
-    elif u_data[2] < 10:
-        badge = "Active Contributor"
-    else:
-        badge = "Top Contributor"
 
     # renders page
     if len(u_data[3]) > 0:
