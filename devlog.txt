@@ -6,3 +6,7 @@ Did a bunch of research into JS and how to even start. Wrote a bunch of the code
 
 BogdanS -- 2025-12-03 22:00
 Added flask functionality with logging in, registering, and profile viewer.
+
+HaowenX -- 2025-12-04 11:42
+I worked on blackjack, started writing it. Natalie working on making the navbar and implementing Bootstrap into it.
+Ashley tried to work on the Frontend and linking things but pulsar was bugging out. Bogdan working on init and database.
