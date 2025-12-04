@@ -3,3 +3,6 @@ Added a bunch of files so we can star working whenever. Reviewed DD.
 
 NatalieK -- 2025-12-03 7:20
 Did a bunch of research into JS and how to even start. Wrote a bunch of the code for slots! Still ugly though.
+
+BogdanS -- 2025-12-03 22:00
+Added flask functionality with logging in, registering, and profile viewer.
