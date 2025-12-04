@@ -12,8 +12,7 @@ DB_FILE = "data.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT, contributions TEXT, times_cont INTEGER);")
-c.execute("CREATE TABLE IF NOT EXISTS story_base(path TEXT, title TEXT, content TEXT, last_entry TEXT, editors TEXT, author INTEGER);")
+c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT);")
 
 db.commit()
 db.close()
@@ -118,7 +117,7 @@ def profile(u_rowid):
 
     u_data = fetch('user_base',
                    f"ROWID={u_rowid}",
-                   'username, pfp, times_cont, contributions')[0]
+                   'username, pfp')[0]
     # pfp editing
     if request.method=='POST':
         if 'pfp' in request.form:
@@ -137,27 +136,11 @@ def profile(u_rowid):
         </form>"""
 
     # renders page
-    if len(u_data[3]) > 0:
-        conts = []
-        for story in u_data[3].split(',')[1:]:
-            conts.append(fetch('story_base', f"rowid = {story}", 'title, path')[0])
-        return render_template("profile.html",
-            username=u_data[0],
-            pfp=u_data[1],
-            pfps=pfps,
-            edit=edit,
-            badge=badge,
-            times_cont=u_data[2],
-            contributions=conts)
-    else:
-        return render_template("profile.html",
-            username=u_data[0],
-            pfp=u_data[1],
-            pfps=pfps,
-            edit=edit,
-            badge=badge,
-            times_cont=u_data[2],
-            if_conts="No contributions yet. <br><br><br>")
+    return render_template("profile.html",
+        username=u_data[0],
+        pfp=u_data[1],
+        pfps=pfps,
+        edit=edit)
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):
@@ -178,9 +161,7 @@ def create_user(username, password):
     if not username in list:
         # creates user in table
         pfp = random.choice(pfps)
-        contributions = ""
-        times_cont = 0
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', \'{contributions}\', {times_cont})")
+        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp')")
 
         # set path
         c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")

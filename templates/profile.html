@@ -30,30 +30,6 @@
 
     <div class='main'>
       <h1> {{ username }} </h1>
-      <p>
-        {{ badge }} <br>
-        Times Contributed: {{ times_cont }}
-      </p>
-      <h3 id="contributions"> Contributions </h3>
-      <p> {{ if_conts | safe }} </p>
-      <div class="lists">
-        <div class="col">
-          <h3>Authored</h3>
-          <ul>
-            {% for story in contributions[0] %}
-              <li> <a href={{ story[1] }}> {{ story[0] }} </a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="col">
-          <h3>Edited</h3>
-          <ul>
-            {% for story in contributions[1] %}
-              <li> <a href={{ story[1] }}> {{ story[0] }} </a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
     </div>
 
   </body>

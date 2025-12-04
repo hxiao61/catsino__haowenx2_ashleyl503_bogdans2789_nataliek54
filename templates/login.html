@@ -36,18 +36,8 @@
             <br><br>
             <input type="submit" name="sub1" class="sub1" value="Submit">
           </form>
-
           <br>
-
-          <form method='POST' action="/login">
-            <input type="hidden" name="forgot">
-            <button type='submit' name='forgot' id="forgot">
-              Forgot Password
-            </button>
-          </form>
-
           <br>
-
           <button onclick="location.href='/register'" id="register">Register</button>
         {% else %}
           <p id="prompt"> {{ prompt | safe }} </p>
