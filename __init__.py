@@ -12,7 +12,7 @@ DB_FILE = "data.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT);")
+c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT, inv TEXT, cash INTEGER, wins INTEGER);")
 
 db.commit()
 db.close()
@@ -32,40 +32,8 @@ def homepage():
 def login():
     if request.method == 'POST':
         usernames = [row[0] for row in fetch("user_base", "TRUE", "username")]
-        # FORGOT PASSWORD
-        if "f_user" in request.form:
-            if request.form['f_user'] in usernames:
-                session['question'] = random.randint(1,5) # change range when we have a certain number of questions
-                session['username'] = request.form['f_user']
-                return render_template("login.html",
-                    normal=False,
-                    prompt="Solve &nbsp the &nbsp math &nbsp problem &nbsp below:",
-                    #/math{session['question'][0]}.jpg"
-                    request=f"""<image src="/static/leaf.jpg"> <input type='Text' name='answer'> <br><br>
-                    <input type='Submit' name='sub1' class='sub1' value='Submit'>""")
-            return render_template("login.html",
-                normal=False,
-                error="User &nbsp does &nbsp not &nbsp exist",
-                prompt="Please &nbsp enter &nbsp your &nbsp username &nbsp below:",
-                request="""<input type='Text' name='f_user'> <br><br>
-                <input type='Submit' name='sub1' class='sub1' value='Submit'>""")
-        elif "answer" in request.form:
-            return render_template("login.html", normal=True) # probably use dbs to save problems + answers?? or would it be better to just have a dictionary
-        elif "new_pw" in request.form:
-            if not request.form['new_pw'] == request.form['confirm']:
-                return render_template("login.html",
-                    normal=False,
-                    error="Passwords do not match, please try again!",
-                    prompt="Enter &nbsp your &nbsp new &nbsp password &nbsp below:",
-                    request="""<input type='Text' name='new_pw'> <br><br>
-                    <input type='Submit' name='sub1' class='sub1' value='Submit'>""")
-            update_password(request.form['new_pw'], session['username'][0])
-            session.clear()
-            return render_template("login.html", normal=True)
-
-
         # SIGNING IN
-        elif not request.form['username'] in usernames:
+        if not request.form['username'] in usernames:
             return render_template("login.html",
                 error="Wrong &nbsp username &nbsp or &nbsp password!<br><br>",
                 normal=True)
@@ -82,6 +50,11 @@ def login():
     if 'u_rowid' in session:
         return redirect("/")
     return render_template("login.html", normal=True)
+
+@app.route('/store', methods=["GET", "POST"])
+def store():
+    if request.method == 'POST':
+
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
@@ -186,6 +159,15 @@ def update_password(pw, username):
     c.execute(f"UPDATE user_base SET password = \'{pw}\' WHERE username=\'{username}\'")
     db.commit()
     db.close()
+
+def update_inv(user, cashUpdt, newCash, invUpdt, newItem):
+#cashUpdt and invUpdt are -1, 0, or 1
+#-1 indicates subtraction of cash or an item
+#0 indicates no change
+#1 indicates addition of cash or item
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
 
 # Flask
 if __name__=='__main__':
