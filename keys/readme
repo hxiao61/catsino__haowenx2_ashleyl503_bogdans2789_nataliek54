@@ -1,0 +1,20 @@
+1. Deck of Cards API
+API that does the following:
+- Create a new shuffled deck
+- Draw cards
+- Reshuffle deck
+- Create piles
+
+This is the basis for our card games including blackjack, poker, maybe some additional stretch goals in the future
+
+2. The Cat API
+Uses:
+- 10k+ cat images with metadata and breeds
+- Breed information, categories, facts
+
+This is how we are going to pull images for decorations and the theme of our site, cats.
+
+3. Evil Insults Generator API
+Small API that generates "evil" insults
+We know it has super duper bad words.
+We will use it when the player loses
