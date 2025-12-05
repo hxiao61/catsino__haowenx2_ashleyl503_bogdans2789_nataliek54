@@ -1,0 +1,7 @@
+.wheel {
+  height: 500px;
+  width: 500px;
+  background-color: #CCAE8F;
+  border-radius: 50%;
+  display: inline-block;
+}
