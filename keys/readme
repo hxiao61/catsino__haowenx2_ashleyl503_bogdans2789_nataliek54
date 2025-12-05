@@ -1,4 +1,5 @@
 1. Deck of Cards API
+Website: https://deckofcardsapi.com/
 API that does the following:
 - Create a new shuffled deck
 - Draw cards
@@ -8,6 +9,7 @@ API that does the following:
 This is the basis for our card games including blackjack, poker, maybe some additional stretch goals in the future
 
 2. The Cat API
+Website: https://thecatapi.com/
 Uses:
 - 10k+ cat images with metadata and breeds
 - Breed information, categories, facts
@@ -15,6 +17,7 @@ Uses:
 This is how we are going to pull images for decorations and the theme of our site, cats.
 
 3. Evil Insults Generator API
+Website: https://evilinsult.com/api/
 Small API that generates "evil" insults
 We know it has super duper bad words.
 We will use it when the player loses
