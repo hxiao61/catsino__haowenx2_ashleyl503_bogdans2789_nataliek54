@@ -54,7 +54,7 @@ def login():
 @app.route('/store', methods=["GET", "POST"])
 def store():
     if request.method == 'POST':
-
+        return render_template("store.html")
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
@@ -78,9 +78,10 @@ def register():
 
 @app.route('/profile', methods=["GET", "POST"])
 def profileDefault():
+    print("inprofile")
     if not 'u_rowid' in session:
         return redirect("/login")
-    return redirect(f"/profile/{session['u_rowid'][0]}");
+    return redirect(f"/profile/{session['u_rowid'][0]}")
 
 @app.route('/profile/<u_rowid>', methods=["GET", "POST"]) # makes u_rowid a variable that is passed to the function
 def profile(u_rowid):
@@ -113,7 +114,9 @@ def profile(u_rowid):
         username=u_data[0],
         pfp=u_data[1],
         pfps=pfps,
-        edit=edit)
+        edit=edit,
+        balance=fetch("user_base", f"ROWID={u_rowid}", "cash")[0][0],
+        wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0])
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):
@@ -134,7 +137,7 @@ def create_user(username, password):
     if not username in list:
         # creates user in table
         pfp = random.choice(pfps)
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp')")
+        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 1000, 0)")
 
         # set path
         c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")
