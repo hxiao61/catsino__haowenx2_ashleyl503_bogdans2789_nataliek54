@@ -54,7 +54,9 @@ def login():
 @app.route('/store', methods=["GET", "POST"])
 def store():
     if request.method == 'POST':
+        update_inv(session['u_rowid'][0], -1, 100, 1, "labubu")
         return render_template("store.html")
+    return render_template("store.html")
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
@@ -170,7 +172,16 @@ def update_inv(user, cashUpdt, newCash, invUpdt, newItem):
 #1 indicates addition of cash or item
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-
+    curCash = fetch("user_base", f"ROWID={user}", "cash")[0][0]+newCash*cashUpdt
+    curInv = fetch("user_base", f"ROWID={user}", "inv")[0][0]
+    if (invUpdt==1):
+        curInv += f", {newItem}"
+    elif (invUpdt==-1):
+        curInv = curInv.replace(f"{newItem}, ", "")
+    c.execute(f"UPDATE user_base SET cash = \'{curCash}\' WHERE username=\'{user}\'")
+    c.execute(f"UPDATE user_base SET inv = \'{curInv}\' WHERE username=\'{user}\'")
+    db.commit()
+    db.close()
 
 # Flask
 if __name__=='__main__':
