@@ -120,6 +120,10 @@ def profile(u_rowid):
         balance=fetch("user_base", f"ROWID={u_rowid}", "cash")[0][0],
         wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0])
 
+@app.route('/slots')
+def slots():
+    return render_template('slots.html')
+
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):
     db = sqlite3.connect(DB_FILE)
