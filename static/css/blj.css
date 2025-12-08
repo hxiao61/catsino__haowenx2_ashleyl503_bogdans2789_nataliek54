@@ -1,0 +1,20 @@
+.navbar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  align-items: center;
+  list-style-type: none;
+  background-color: #43291F;
+  align-self: center;
+}
+
+.nav {
+  float: top;
+  overflow: hidden;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.nav a {
+  color: #EDEDE9;
+  text-decoration: none;
+}
