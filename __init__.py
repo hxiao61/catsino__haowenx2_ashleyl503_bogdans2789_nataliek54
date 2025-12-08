@@ -25,7 +25,7 @@ pfps = ['https://cdn2.thecatapi.com/images/a20.jpg']
 def homepage():
     if not 'u_rowid' in session:
         return redirect("/login")
-    return render_template("home.html", user = fetch("user_base", f"rowid={session["u_rowid"]}", "username"), tuna = fetch("user_base", f"rowid={session["u_rowid"]}", "cash"), wins = fetch("user_base", f"rowid={session["u_rowid"]}", "wins"))
+    return render_template("home.html", user = fetch("user_base", f"rowid={session['u_rowid']}", "username"), tuna = fetch("user_base", f"rowid={session['u_rowid']}", "cash"), wins = fetch("user_base", f"rowid={session['u_rowid']}", "wins"))
 
 # USER INTERACTIONS
 @app.route('/login', methods=["GET", "POST"])
