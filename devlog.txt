@@ -10,3 +10,9 @@ Added flask functionality with logging in, registering, and profile viewer.
 HaowenX -- 2025-12-04 11:42
 I worked on blackjack, started writing it. Natalie working on making the navbar and implementing Bootstrap into it.
 Ashley tried to work on the Frontend and linking things but pulsar was bugging out. Bogdan working on init and database.
+
+HaowenX -- 2025-12-05 11:37
+Worked on getting API keys and updating readme. Working on home page bootstrap and CSS/Frontend. Working on roulette, grabbed code for the circle as the base code
+
+BogdanS -- 2025-12-05 12:00
+I modified the database to include cash, inventory, and wins. I also made a prototype of a store page that adds an item to your inventory and subtracts money.
