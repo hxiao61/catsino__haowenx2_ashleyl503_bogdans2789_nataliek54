@@ -5,3 +5,15 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.wheel2 {
+  height: 400px;
+  width: 400px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+img {
+  width: 50%
+}
