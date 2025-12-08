@@ -25,7 +25,7 @@ pfps = ['https://cdn2.thecatapi.com/images/a20.jpg']
 def homepage():
     if not 'u_rowid' in session:
         return redirect("/login")
-    return render_template("home.html", user = fetch("user_base", f"rowid={session['u_rowid']}", "username"), tuna = fetch("user_base", f"rowid={session['u_rowid']}", "cash"), wins = fetch("user_base", f"rowid={session['u_rowid']}", "wins"))
+    return render_template("home.html", user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
 
 # USER INTERACTIONS
 @app.route('/login', methods=["GET", "POST"])
@@ -125,6 +125,7 @@ def fetch(table, criteria, data):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     query = f"SELECT {data} FROM {table} WHERE {criteria};"
+    print(query)
     c.execute(query)
     data = c.fetchall()
     db.commit()
