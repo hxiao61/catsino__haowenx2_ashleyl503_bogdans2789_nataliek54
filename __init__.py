@@ -122,7 +122,29 @@ def profile(u_rowid):
 
 @app.route('/slots')
 def slots():
-    return render_template('slots.html')
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
+    c.execute(query)
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return render_template('slots.html', won=data[0][0])
+
+@app.route('/addtuna', methods=['POST'])
+def addtuna():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    tuna = request.args.get('num')
+    query = f"UPDATE user_base SET cash = cash + {tuna} where rowid = {session['u_rowid'][0]}"
+    c.execute(query)
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
+    c.execute(query)
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return data
+
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):
