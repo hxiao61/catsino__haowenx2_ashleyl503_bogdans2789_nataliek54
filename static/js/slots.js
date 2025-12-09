@@ -13,7 +13,8 @@ const spinDuration = 500;
 let isSpinning = false;
 
 const spinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // Spin effect
-const winSound = new Audio("https://www.fesliyanstudios.com/play-mp3/380"); // Win effect
+const winSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5247");
+const nonWinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5638"); //sad trombone
 
 handle.addEventListener("click", () => {
   if (isSpinning) return;
@@ -22,6 +23,7 @@ handle.addEventListener("click", () => {
   clearConfetti();
 
   spinSound.play();
+  updateBalance(-50);
 
   // randomize
   reels.forEach((reel) => {
@@ -37,6 +39,16 @@ handle.addEventListener("click", () => {
   }, spinDuration);
 });
 
+async function updateBalance(increment) {
+  const response = await fetch("/addtuna?num="+increment, {method: 'POST'});
+  if (response.ok) {
+    const data = await response.json();
+    const newBalance = data[0]
+    document.getElementById('balance').innerText = newBalance;
+  }
+}
+
+
 function checkResult() {
   const symbol1 = getSymbolAtStop(reels[0]);
   const symbol2 = getSymbolAtStop(reels[1]);
@@ -45,9 +57,11 @@ function checkResult() {
   if (symbol1 === symbol2 && symbol2 === symbol3) {
     winSound.play();
     launchConfetti();
+    updateBalance(1000);
   } else {
     resultMessage.textContent = "";
     resultMessage.classList.add("show-message");
+
   }
 }
 
