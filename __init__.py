@@ -15,6 +15,10 @@ db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT, inv TEXT, cash INTEGER, wins INTEGER);")
+c.execute("INSERT INTO user_base VALUES('user', 'pass', 'pfp', '1', 'temp', 1000, 0);")
+
+c.execute("CREATE TABLE IF NOT EXISTS cats(id TEXT, img TEXT, cost INT);")
+
 
 db.commit()
 db.close()
@@ -55,14 +59,68 @@ def login():
 
 @app.route('/store', methods=["GET", "POST"])
 def store():
-    cats = []
+    if request.method == 'POST':
+        
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        c.execute(query)
+        cash = c.fetchall()[0][0]
+        if (int(cash) > 50):
+            query = f"UPDATE user_base SET cash = cash - 50 WHERE rowid={session['u_rowid'][0]}"
+            c.execute(query)
+        else:
+            return redirect('/store')
+        db.commit()
+        db.close()  
     #key = open('keys/key_The-Cat-API.txt', 'r').read()
-    with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search') as resp:
+    with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search?limit=3') as resp:
         resp = resp.read().decode()
+        cats = []
         json_obj = json.loads(resp)
-        print(json_obj[0]['url'])
-        cats.append([json_obj][0]['url'])
-    return render_template("store.html")
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        c.execute(query)
+        data = int(c.fetchall()[0][0])
+        nums = [random.randrange(500, 1500), random.randrange(500, 1500), random.randrange(500, 1500)]
+        if (nums[0] > data):
+            cats.append([json_obj[0]['id'], json_obj[0]['url'], nums[0], 'disabled'])
+        else:
+            cats.append([json_obj[0]['id'], json_obj[0]['url'], nums[0], '']) 
+        if (nums[1] > data):
+            cats.append([json_obj[1]['id'], json_obj[1]['url'], nums[1], 'disabled'])
+        else:
+            cats.append([json_obj[1]['id'], json_obj[1]['url'], nums[1], ''])
+        if (nums[2] > data):
+            cats.append([json_obj[2]['id'], json_obj[2]['url'], nums[2], 'disabled'])
+        else:
+            cats.append([json_obj[2]['id'], json_obj[2]['url'], nums[2], ''])
+
+    print(data)
+    db.commit()
+    db.close()  
+    return render_template("store.html", cats=cats, tuna=data)
+
+@app.route('/buy', methods=["GET", "POST"]) #takes in cat image and name like /buy?id=XXimage=XX&cost=XX
+def buy():
+    if request.method == 'POST':
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT inv FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        id = request.args['id']
+        query = f"UPDATE user_base SET inv = inv || ' ' || \'{id}\' WHERE rowid={session['u_rowid'][0]};" #adds cat name to inventory
+        c.execute(query)
+        query = f"INSERT INTO cats VALUES(\'{request.args['id']}\', \'{request.args['img']}\', {request.args['cost']});" #adds cat with name and link to db to be accessed later
+        c.execute(query)   
+        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};" 
+        c.execute(query)
+        cash = c.fetchall()[0][0]
+        query = f"UPDATE user_base SET cash = cash - {request.args['cost']};" #takes money
+        c.execute(query)  
+        db.commit()
+        db.close()   
+    return redirect('/store')   
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
@@ -117,6 +175,19 @@ def profile(u_rowid):
         <input type='Image' src='/static/edit.png' name='Change PFP'>
         </form>"""
 
+    #get cat list
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    inv_list = fetch("user_base", f"ROWID={u_rowid}", "inv")
+    inv_list = inv_list[0][0].split()
+    print(inv_list)    
+    cat_list = []
+    for cat in inv_list:
+        query = f"SELECT * FROM cats WHERE id=\'{cat}\';"
+        c.execute(query)
+        cats = c.fetchall()
+        cat_list.append(list(cats[0]))
+    print(cat_list)
     # renders page
     return render_template("profile.html",
         username=u_data[0],
@@ -124,7 +195,8 @@ def profile(u_rowid):
         pfps=pfps,
         edit=edit,
         balance=fetch("user_base", f"ROWID={u_rowid}", "cash")[0][0],
-        wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0])
+        wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0],
+        inventory = cat_list)
 
 @app.route('/slots')
 def slots():
@@ -176,7 +248,7 @@ def create_user(username, password):
     if not username in list:
         # creates user in table
         pfp = random.choice(pfps)
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 1000, 0)")
+        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 1000000000, 0)")
 
         # set path
         c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")

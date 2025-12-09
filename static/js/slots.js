@@ -11,13 +11,25 @@ const confettiContainer = document.getElementById("confetti");
 const symbols = ["😺", "😸", "😻", "🙀", "😼"];
 const spinDuration = 500;
 let isSpinning = false;
+let lowBal = false;
 
 const spinSound = new Audio('cha-ching.mp3'); // Spin effect
 const winSound = new Audio("cha-ching.mp3");
 const nonWinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5638"); //sad trombone
 
+
+
 handle.addEventListener("click", () => {
+
   if (isSpinning) return;
+  if (document.getElementById('balance').innerText < 50) {
+    handle.disabled = true;
+    console.log('a')
+    return;
+  }
+  else {
+    handle.disabled = false;
+  }
   isSpinning = true;
 
   clearConfetti();
@@ -47,7 +59,6 @@ async function updateBalance(increment) {
     document.getElementById('balance').innerText = newBalance;
   }
 }
-
 
 function checkResult() {
   const symbol1 = getSymbolAtStop(reels[0]);

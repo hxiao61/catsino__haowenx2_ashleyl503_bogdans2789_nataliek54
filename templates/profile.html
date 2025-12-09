@@ -22,6 +22,9 @@
           <li class="nav-item">
             <a class="nav-link text-light" href="/profile">Profile</a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="/store">Store</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="/logout">Logout</a>
           </li>
@@ -53,6 +56,23 @@
         <p>You won {{wins}} times!</p>
       </div>
     </div>
+  </div>
+  <div class="row m-2">
+    {% for cat in inventory%}
+      <div class='col-sm'>
+        <div class="card m-1 p-1" style="width: 18rem; background-color: #7e93fc;">
+          <img class="card-img-top" src={{cat[1]}} alt="{{cat[0]}}">
+          <div class="card-body">
+            <h5 class="card-title">{{cat[0]}}</h5>
+            <p class="card-text">Cost: {{cat[2]}} 🐟</p>
+            <form method='POST' action="/buy?id={{cat[0]}}&img={{cat[1]}}&cost={{cat[2]}}">
+              <input type="submit" name="sub1" class="sub1" value="Buy" {{cat[3]}}>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
   </div>
   </div>
 
