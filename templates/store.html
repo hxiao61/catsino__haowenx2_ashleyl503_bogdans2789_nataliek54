@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
-  <title> Catsino Home </title>
+  <title> Catsino Store </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg p-1" style="background-color: #222024 ;">
+    <a class="navbar-brand text-light" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2013%2F12%2F12%2F03%2F09%2Fkitten-227011_1280.jpg&f=1&nofb=1&ipt=2737614ad24a91161bc38fb912dca18a6279b3e7a1417a5d044cf06abb7f2fdd">CATSINO</a>
+    <div class="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/logout">Logout</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+  <div class='container'>
+    <h1 >Store </h1>
+  </div>
+
+  <div class='container'>
+    <div class='row'>
+      {%for cat in cats%}
+        <div class='col-sm'>
+          <div class="card m-1 p-1" style="width: 18rem; background-color: #7e93fc;">
+            <img class="card-img-top" src={{cat['url']}} alt="{{cat['name']}}">
+            <div class="card-body">
+              <h5 class="card-title">{{cat['name']}}</h5>
+              <p class="card-text">{{cat['temperament']}}</p>
+              <form method='POST' action="/store">
+                <input type="submit" name="sub1" class="sub1" value="Buy">
+              </form>
+            </div>
+          </div>
+        </div>
+      {%endfor%}
+    </div>
+  </div>
+
   <form method='POST' action="/store">
-    <input type="submit" name="sub1" class="sub1" value="Buy">
+    <input type="submit" name="sub1" class="sub1" value="Roll again">
   </form>
 
 </body>

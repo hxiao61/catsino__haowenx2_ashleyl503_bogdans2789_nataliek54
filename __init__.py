@@ -1,6 +1,8 @@
 import sqlite3
 import random
-from flask import Flask, render_template
+import urllib.request
+import json
+from flask import Flask, render_template, send_file
 from flask import session, request, redirect
 
 # Flask
@@ -53,9 +55,13 @@ def login():
 
 @app.route('/store', methods=["GET", "POST"])
 def store():
-    if request.method == 'POST':
-        update_inv(session['u_rowid'][0], -1, 100, 1, "labubu")
-        return render_template("store.html")
+    cats = []
+    #key = open('keys/key_The-Cat-API.txt', 'r').read()
+    with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search') as resp:
+        resp = resp.read().decode()
+        json_obj = json.loads(resp)
+        print(json_obj[0]['url'])
+        cats.append([json_obj][0]['url'])
     return render_template("store.html")
 
 @app.route('/logout', methods=["GET", "POST"])
@@ -145,6 +151,10 @@ def addtuna():
     db.close()
     return data
 
+
+@app.route('/sound')
+def sound():
+    return send_file('cha-ching.mp3')
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):

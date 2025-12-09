@@ -12,8 +12,8 @@ const symbols = ["😺", "😸", "😻", "🙀", "😼"];
 const spinDuration = 500;
 let isSpinning = false;
 
-const spinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // Spin effect
-const winSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5247");
+const spinSound = new Audio('cha-ching.mp3'); // Spin effect
+const winSound = new Audio("cha-ching.mp3");
 const nonWinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5638"); //sad trombone
 
 handle.addEventListener("click", () => {
@@ -57,7 +57,7 @@ function checkResult() {
   if (symbol1 === symbol2 && symbol2 === symbol3) {
     winSound.play();
     launchConfetti();
-    updateBalance(1000);
+    updateBalance(2000);
   } else {
     resultMessage.textContent = "";
     resultMessage.classList.add("show-message");
