@@ -1,3 +1,9 @@
+body {
+  background-color: #255e35;
+  font-family: 'monospace';
+
+}
+
 img {
   width: 20%;
   border-radius: 50%;
@@ -13,13 +19,40 @@ img {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: auto auto auto;
-  background-color: dodgerblue;
-  padding: 10px;
+  background-color: white;
+  padding: 5px;
 }
-.container div {
-  background-color: #f1f1f1;
-  border: 1px solid black;
-  padding: 10px;
+
+.green {
+  background-color: #255e35;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
   font-size: 30px;
   text-align: center;
+}
+
+.black {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.red {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 20px;
 }
