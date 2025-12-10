@@ -1,9 +1,10 @@
 .navbar {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  font-size: 20px;
   align-items: center;
   list-style-type: none;
-  background-color: #43291F;
+  background-color: #1c1a1a;
   align-self: center;
 }
 
