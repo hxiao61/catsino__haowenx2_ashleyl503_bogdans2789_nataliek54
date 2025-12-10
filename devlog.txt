@@ -19,3 +19,6 @@ I modified the database to include cash, inventory, and wins. I also made a prot
 
 HaowenX -- 2025-12-08 11:39
 Fixed __init__.py. Ashley worked well on Roulette. Need to fix navbar cus its not working when you shrink the screen. Need to work on API keys
+
+NatalieK -- 2025-12-09 18:40
+Made slots work! Now there's a mechanism to use the Cat API, plus adding and subtracting tuna. I'm literally goated.
