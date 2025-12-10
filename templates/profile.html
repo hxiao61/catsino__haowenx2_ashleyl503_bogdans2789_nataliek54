@@ -47,7 +47,7 @@
         </ul>
     </div>
   </nav>
-  <body style='background-color: #F2B187; color: #6C2504'>
+  <body style='background-color: #3a6624;'>
     <div class='container m-2'>
       <div class='row'>
         <div class='col-sm'>
@@ -66,27 +66,22 @@
 
         <div class='col-sm'>
 
-          <div class='main' style="font-size: 40px">
-            <h1 style="font-family: WireFont; font-size: 80px"> {{ username }} </h1>
-            <p>Your balance: {{balance}} tuna.</p>
-            <p>You won {{wins}} times!</p>
-          </div>
-        </div>
+      <div class='main'>
+        <h1 style='color: #000000'> {{ username }} </h1>
+        <p>Your balance: <b> {{balance}} 🐟 </b> </p>
+        <p>You won <b> {{wins}} times!</b> </p>
       </div>
     </div>
 
   </div>
   <div class="row m-1">
     {% for cat in inventory%}
-      <div class='col-sm'>
-        <div class="card m-1 p-1" style="width: 18rem; background-color: #004739; color: #96AAC8; height: 40rem">
+      <div class='col-sm p-1'>
+        <div class="card m-1 p-1 h-100" style="width: 18rem; background-color: #749165;">
           <img class="card-img-top" src={{cat[1]}} alt="{{cat[0]}}">
           <div class="card-body">
             <h5 class="card-title">{{cat[0]}}</h5>
             <p class="card-text">Cost: {{cat[2]}} 🐟</p>
-            <form method='POST' action="/buy?id={{cat[0]}}&img={{cat[1]}}&cost={{cat[2]}}">
-              <input type="submit" name="sub1" class="sub1" value="Buy" style="border: none; background: none; color: #96AAC8; padding-left: 0" {{cat[3]}}>
-            </form>
           </div>
         </div>
       </div>
