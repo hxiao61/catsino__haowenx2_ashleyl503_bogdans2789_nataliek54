@@ -52,17 +52,20 @@ async function hit(){
 async function stand(){
     if (!gameActive) return;
 
+    updateDealerScoreUI();
+
     let dealerScore = calculateScore(dealerCards);
     let playerScore = calculateScore(playerCards);
+
     while(dealerScore < 17){
         let response = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`);
         let data = await response.json();
         dealerCards.push(data.cards[0]);
         dealerScore = calculateScore(dealerCards);
-        displayCard(data.cards[0], 'dealer-hand');
+
+        updateDealerScoreUI();
     }
 
-    updateDealerScoreUI();
 
     if(dealerScore > 21) {
         endGame("Dealer Busted, you win");
