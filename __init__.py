@@ -23,7 +23,12 @@ c.execute("CREATE TABLE IF NOT EXISTS cats(id TEXT, img TEXT, cost INT);")
 db.commit()
 db.close()
 
-pfps = ['https://cdn2.thecatapi.com/images/a20.jpg']
+pfps = ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdo.lolwot.com%2Fwp-content%2Fuploads%2F2015%2F06%2F20-of-the-most-evil-cats-youll-ever-see-11.jpg&f=1&nofb=1&ipt=7b4168f197edce4122be7002d6d0ee88e9e9e73d0fd2ae603a2fcf147e98f723',
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F236x%2F40%2F09%2Ff1%2F4009f1324d775dd5c1f566282e3cc71c.jpg%3Fnii%3Dt&f=1&nofb=1&ipt=5cce8cff0671f80be2eb8c2ebf3bb21c956c71eeb29bba238ce238d6036b8046',
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2Fg7-y0PzwFYUAAAAM%2Fdevious-evil-cat.gif&f=1&nofb=1&ipt=01a19b982824a2f0cbe49a02788a77a0da89145dc962cee67e38295894a0c205',
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F7a%2F22%2F88%2F7a22882b3f70fa099068f71716f32994.jpg&f=1&nofb=1&ipt=1232fbbb73aed544069044f0850d988d179abe20b7f4f443d256fe4244ff5f7b',
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Ffe%2F55%2F84%2Ffe55842fb719c1deed66398848b35c5c.jpg&f=1&nofb=1&ipt=8e7d7dd916eaf4f92ef8df464e751805a153e95c1c69e79638186ff4c1ab0ffd',
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.boredpanda.com%2Fblog%2Fwp-content%2Fuploads%2F2017%2F03%2FEvil-Cats-Demons-Summoning-Satan-102-58d0d5127832f__700.jpg&f=1&nofb=1&ipt=926a872dff64013519cef2372f2c0b86e25c72d035d90d74a8866f523607baae']
 
 # HTML PAGES
 # LANDING PAGE
@@ -85,7 +90,7 @@ def store():
             query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
             c.execute(query)
             data = int(c.fetchall()[0][0])
-            nums = [random.randrange(500, 1500), random.randrange(500, 1500), random.randrange(500, 1500)]
+            nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
             resp2 = resp2.read().decode()
             json_obj2 = json.loads(resp2)
 
@@ -164,20 +169,26 @@ def profile(u_rowid):
                    f"ROWID={u_rowid}",
                    'username, pfp')[0]
     # pfp editing
+    profcheck = False
+
+    if int(u_rowid) == int(session['u_rowid'][0]):
+        profcheck = True
+
     if request.method=='POST':
         if 'pfp' in request.form:
             update_pfp(request.form['pfp'], u_rowid)
             return redirect(f"/profile/{u_rowid}")
         else:
-            edit = f"<form method='POST' action={u_rowid} id='PFPform'>"
+            edit = f"<form method='POST' action={u_rowid} id='PFPform' class='btn-dark' >"
             for pfp in pfps:
-                edit += f"""<button type='submit' name='pfp' class='ibutton' value={pfp}>
-                <img src={pfp} alt='profile choice' class='image'>
+                edit += f"""<button type='submit' name='pfp' class='btn-dark' value={pfp}>
+                <img src={pfp} alt='profile choice' class='image' style='height:120px;'>
                 </button>"""
             edit += "</form>"
+
     else:
-        edit = f"""<form method='POST' action={u_rowid}>
-        <input type='Image' src='/static/edit.png' name='Change PFP'>
+        edit = f"""<form method='POST' action={u_rowid}  class='btn-dark'>
+        <input type='Image' name='Change PFP' value='Change PFP'>
         </form>"""
 
     #get cat list
@@ -193,9 +204,11 @@ def profile(u_rowid):
         cats = c.fetchall()
         cat_list.append(list(cats[0]))
     print(cat_list)
+
     # renders page
     return render_template("profile.html",
         username=u_data[0],
+        own_profile=profcheck,
         pfp=u_data[1],
         pfps=pfps,
         edit=edit,
