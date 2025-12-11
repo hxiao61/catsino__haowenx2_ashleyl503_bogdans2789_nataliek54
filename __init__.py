@@ -203,6 +203,16 @@ def profile(u_rowid):
         wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0],
         inventory = cat_list)
 
+@app.route('/blj')
+def blackjack():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
+    c.execute(query)
+    data = c.fetchall()
+    db.close()
+    return render_template('blj.html', won=data[0][0])
+
 @app.route('/slots')
 def slots():
     db = sqlite3.connect(DB_FILE)
