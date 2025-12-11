@@ -7,7 +7,7 @@ async function startGame(){
     document.getElementById('message').innerText = "";
     document.getElementById('dealer-hand').innerHTML = "";
     document.getElementById('player-hand').innerHTML = "";
-    document.getElementById('dealer-score').innerText = "?";
+    document.getElementById('dealer-score').innerText = " Hidden";
     document.getElementById('player-score').innerText = "0";
 
     document.getElementById('hit-btn').disabled = false;
