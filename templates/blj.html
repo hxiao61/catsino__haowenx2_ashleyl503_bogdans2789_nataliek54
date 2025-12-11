@@ -26,5 +26,37 @@
       <a href="/logout"> Log Out </a>
     </div>
   </div>
+
+  <div class="container text-center">
+    <div class = "container fluid">
+      <div class = "col">
+        <h3>Dealer's Hand<span id="dealer-score">?</span></h3>
+        <div id="dealer-hand" class="hand-container d-flex justify-content-center align-items-center"></div>
+      </div>
+    </div>
+
+    <div class = "container fluid">
+      <div class = "col">
+        <h3>Your Hand</h3>
+        <div id="player-hand" class="hand-container d-flex justify-content-center align-items-center"></div>
+      </div>
+    </div>
+
+    <div class = "game-controls">
+      <button id = "start-btn" class="btn btn-success btn-lg" onclick="startGame()">Start New Game</button>
+      <button id = "hit-btn" class="btn btn-warning btn-lg" onclick="hit()">Hit</button>
+      <button id = "stand-btn" class="btn btn-danger btn-lg" onclick="stand()">Stand</button>
+    </div>
+
+    <h2 id = "message" style = "color:blue; font-weight: bold;"></h2>
+
+    <div class = "row mt-2">
+      <div class = "col">
+        <h3>Score: <span id="player-score">0</span></h3>
+      </div>
+    </div>
+  </div>
+
+<script src = '../static/js/blj.js'></script>
   </body>
 </html>

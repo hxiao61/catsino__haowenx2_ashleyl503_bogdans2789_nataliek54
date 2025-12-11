@@ -33,13 +33,15 @@
     </div>
   </nav>
 
+  <button id = "start-btn" class="btn btn-success btn-lg" onclick="Setup()">Start New Game</button>
+
 
   <h1>Cards:</h1>
-  {%for card in cards%}
-  <p>{{card}}</p>
-  {%endfor%}
+  <div id="cds"></div>
 
+  <h2 id='test'></h2>
+
+
+<script src = '../static/js/poker.js'></script>
 </body>
-
-
 </html>
