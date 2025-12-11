@@ -22,3 +22,6 @@ Fixed __init__.py. Ashley worked well on Roulette. Need to fix navbar cus its no
 
 NatalieK -- 2025-12-09 18:40
 Made slots work! Now there's a mechanism to use the Cat API, plus adding and subtracting tuna. I'm literally goated.
+
+HaowenX -- 2025-12-11 11:43
+BlackJack works. Roulette is being worked on. Need to make the balance work alongside blackjack.
