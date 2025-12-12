@@ -222,7 +222,7 @@ def poker():
         c.execute(query)
         cash = c.fetchall()[0][0]
         if (int(cash) > 50):
-            query = f"UPDATE user_base SET cash = cash - 50 WHERE rowid={session['u_rowid'][0]}"
+            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
             c.execute(query)
         else:
             return redirect('/poker')

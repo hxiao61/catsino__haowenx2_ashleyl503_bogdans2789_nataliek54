@@ -33,13 +33,19 @@
     </div>
   </nav>
 
-  <button id = "start-btn" class="btn btn-success btn-lg" onclick="Setup()">Start New Game</button>
+  <form method='POST' action="/poker">
+    <input class='m-1' type="text" name="theBet" required>
+    <input type="submit" name="sub1" class="m-1 p-1" value="Bet">
+  </form>
+  <br>
+  <button id = "start-btn" class="btn btn-success btn-lg" onclick="Setup()">Deal</button>
+
 
 
   <h1>Cards:</h1>
   <div id="cds"></div>
 
-  <h2 id='test'></h2>
+  <h2 id='test'>hi</h2>
 
 
 <script src = '../static/js/poker.js'></script>
