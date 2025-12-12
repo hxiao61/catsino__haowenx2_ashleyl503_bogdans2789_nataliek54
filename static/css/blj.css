@@ -25,11 +25,10 @@ body {
 }
 
 .card-img {
-  height: 100px;
-  width: 20px;
-  margin: 5px;
-  border-radius: 5px;
+  max-height: 10%;
+  max-width: 10%;
 }
+
 
 .hand-container {
   min-height: 300px;
