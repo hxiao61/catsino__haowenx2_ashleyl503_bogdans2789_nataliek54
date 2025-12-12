@@ -3,3 +3,25 @@ Added a bunch of files so we can star working whenever. Reviewed DD.
 
 NatalieK -- 2025-12-03 7:20
 Did a bunch of research into JS and how to even start. Wrote a bunch of the code for slots! Still ugly though.
+
+BogdanS -- 2025-12-03 22:00
+Added flask functionality with logging in, registering, and profile viewer.
+
+HaowenX -- 2025-12-04 11:42
+I worked on blackjack, started writing it. Natalie working on making the navbar and implementing Bootstrap into it.
+Ashley tried to work on the Frontend and linking things but pulsar was bugging out. Bogdan working on init and database.
+
+HaowenX -- 2025-12-05 11:37
+Worked on getting API keys and updating readme. Working on home page bootstrap and CSS/Frontend. Working on roulette, grabbed code for the circle as the base code
+
+BogdanS -- 2025-12-05 12:00
+I modified the database to include cash, inventory, and wins. I also made a prototype of a store page that adds an item to your inventory and subtracts money.
+
+HaowenX -- 2025-12-08 11:39
+Fixed __init__.py. Ashley worked well on Roulette. Need to fix navbar cus its not working when you shrink the screen. Need to work on API keys
+
+NatalieK -- 2025-12-09 18:40
+Made slots work! Now there's a mechanism to use the Cat API, plus adding and subtracting tuna. I'm literally goated.
+
+HaowenX -- 2025-12-11 11:43
+BlackJack works. Roulette is being worked on. Need to make the balance work alongside blackjack.

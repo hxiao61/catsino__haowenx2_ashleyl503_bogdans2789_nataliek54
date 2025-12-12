@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <title> Profile </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+
+  <nav class="navbar navbar-expand-lg p-1" style="background-color: #222024 ;">
+    <a class="navbar-brand text-light" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2013%2F12%2F12%2F03%2F09%2Fkitten-227011_1280.jpg&f=1&nofb=1&ipt=2737614ad24a91161bc38fb912dca18a6279b3e7a1417a5d044cf06abb7f2fdd">CATSINO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="/store">Store</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/logout">Logout</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+  <body style='background-color: #3a6624;'>
+    <div class='container m-2'>
+      <div class='row'>
+        <div class='col-sm'>
+          <div class='PFP'>
+            <div id='pic'>
+              <img src={{ pfp }} alt="pfp" class='img-fluid rounded' style='max-width: 80%;'>
+            </div>
+          </div>
+          <div class="btn btn-light m-2" id='edit' name='e'>
+            {% if own_profile %}
+              {{ edit | safe }}
+            {% endif %}
+          </div>
+        </div>
+
+
+    <div class='col-sm'>
+
+      <div class='main'>
+        <h1 style='color: #000000'> {{ username }} </h1>
+        <p>Your balance: <b> {{balance}} 🐟 </b> </p>
+        <p>You won <b> {{wins}} times!</b> </p>
+      </div>
+    </div>
+  </div>
+  <div class="row m-2">
+    {% for cat in inventory%}
+      <div class='col-sm p-1'>
+        <div class="card m-1 p-1 h-100" style="width: 18rem; background-color: #749165;">
+          <img class="card-img-top" src={{cat[1]}} alt="{{cat[0]}}">
+          <div class="card-body">
+            <h5 class="card-title">{{cat[0]}}</h5>
+            <p class="card-text">Cost: {{cat[2]}} 🐟</p>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+  </div>
+
+  </body>
+
+  <footer>
+
+  </footer>
+
+</html>

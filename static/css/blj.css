@@ -1,0 +1,42 @@
+.navbar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  font-size: 20px;
+  align-items: center;
+  list-style-type: none;
+  background-color: #1c1a1a;
+  align-self: center;
+}
+
+.nav {
+  float: top;
+  overflow: hidden;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.nav a {
+  color: #EDEDE9;
+  text-decoration: none;
+}
+
+body {
+  background-color: #295E1E;
+}
+
+.card-img {
+  height: 100px;
+  width: 20px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.hand-container {
+  min-height: 300px;
+  padding: 20px;
+  background-color: #f8f9fa
+}
+
+.game-controls {
+  margin-top:20px;
+}
