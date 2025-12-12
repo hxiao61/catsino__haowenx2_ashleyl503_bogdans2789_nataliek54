@@ -1,9 +1,10 @@
 .navbar {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  font-size: 20px;
   align-items: center;
   list-style-type: none;
-  background-color: #43291F;
+  background-color: #1c1a1a;
   align-self: center;
 }
 
@@ -17,4 +18,20 @@
 .nav a {
   color: #EDEDE9;
   text-decoration: none;
+}
+
+.card-img {
+  width: 100px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.hand-container {
+  min-height: 150px;
+  padding: 20px;
+  background-color: #f8f9fa
+}
+
+.game-controls {
+  margin-top:20px;
 }
