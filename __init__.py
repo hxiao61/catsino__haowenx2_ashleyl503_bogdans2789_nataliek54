@@ -238,6 +238,23 @@ def blackjack():
     db.close()
     return render_template('blj.html', won=data[0][0])
 
+@app.route('/poker', methods=['GET', 'POST'])
+def poker():
+    if request.method == 'POST':
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        c.execute(query)
+        cash = c.fetchall()[0][0]
+        if (int(cash) > 50):
+            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
+            c.execute(query)
+        else:
+            return redirect('/poker')
+        db.commit()
+        db.close()
+    return render_template('poker.html')
+
 @app.route('/slots')
 def slots():
     db = sqlite3.connect(DB_FILE)
