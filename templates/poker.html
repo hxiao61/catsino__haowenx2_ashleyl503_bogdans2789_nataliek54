@@ -33,13 +33,14 @@
     </div>
   </nav>
 
-  <h1>Your bet: <span id="betOUT"></span></h1>
+  <h1>Your bet: <span id="betOUT">{{bet}}</span></h1>
   <form method='POST' action="/poker">
-    <input id="betIN" class='m-1' type="number" name="theBet" onclick="SetBet()" required>
+    <input class='m-1' type="number" name="theBet" required>
     <input type="submit" name="sub1" class="m-1 p-1" value="Bet">
   </form>
   <br>
-  <button id = "start-btn" class="btn btn-success btn-lg" onclick="Setup()">Deal</button>
+  <h2 id="msg"></h2>
+  {{dealButton | safe}}
 
 
 
