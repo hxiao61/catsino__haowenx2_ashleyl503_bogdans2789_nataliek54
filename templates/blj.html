@@ -26,8 +26,8 @@
       <a href="/logout"> Log Out </a>
     </div>
   </div>
-
-  <div class="container text-center">
+<div style = "background-color:#3a6624">
+  <div class="container text-center" style = "background-color:#3a6624">
     <div class = "container fluid">
       <div class = "col">
         <h3>Dealer's Hand: <span id="dealer-score">Hidden</span></h3>
@@ -42,6 +42,15 @@
       </div>
     </div>
 
+    <div class = "containr fluid">
+      <div class = "col">
+        <form>
+          <label for = "bet" style = "font-size: 50px"> Bet: </label>
+          <input type = "number" id = "betamount" name = "betamount" style = "font-size: 50px">
+        </form>
+      </div>
+    </div>
+
     <div class = "game-controls">
       <button id = "start-btn" class="btn btn-success btn-lg" onclick="startGame()">Start New Game</button>
       <button id = "hit-btn" class="btn btn-warning btn-lg" onclick="hit()">Hit</button>
@@ -51,7 +60,7 @@
     <h2 id = "message" style = "color:blue; font-weight: bold;"></h2>
 
   </div>
-
+</div>
 <script src = '../static/js/blj.js'></script>
   </body>
 </html>

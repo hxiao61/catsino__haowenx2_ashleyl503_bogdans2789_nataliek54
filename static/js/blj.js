@@ -46,6 +46,7 @@ async function hit(){
     let score = calculateScore(playerCards);
     if(score>21){
         endGame("You Busted lol");
+        // lose everything
     }
 }
 
@@ -69,12 +70,16 @@ async function stand(){
 
     if(dealerScore > 21) {
         endGame("Dealer Busted, you win");
+        //2x multipliar
     } else if (playerScore > dealerScore){
         endGame("You beat the Dealer!");
+        // 2x multipliar
     } else if (playerScore < dealerScore){
         endGame("Dealer Wins");
+        // lose all
     } else {
         endGame("Tie, refunded");
+        // 1x multipliar
     }
 }
 
@@ -148,6 +153,7 @@ function checkForBlackjack() {
     let pScore = calculateScore(playerCards);
     if (pScore == 21){
         endGame("Blackjack! You win!");
+        // 2.5x multipliar.
     }
 }
 
