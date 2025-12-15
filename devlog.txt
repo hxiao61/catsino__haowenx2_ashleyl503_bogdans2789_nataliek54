@@ -29,3 +29,9 @@ BlackJack works. Roulette is being worked on. Need to make the balance work alon
 HaowenX -- 2025-12-12 11:43
 Blackjack CSS fixed, still need to implement the multipliar on tuna on it though, and trying to fix the background color. Poker is getting started
 Natalie worked on leaderboard and it works. Ashley broke it.
+
+AshleyL -- 2025-12-12 11:46
+Natalie fixed double generated cat names.
+Natalie helped Ashley with linking confetti, still doesn't work. She also helped with tuna counts.
+Haowen worked on inputs for BlackJack.
+Bogdan worked on Poker.
