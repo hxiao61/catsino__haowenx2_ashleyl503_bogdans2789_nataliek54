@@ -25,3 +25,7 @@ Made slots work! Now there's a mechanism to use the Cat API, plus adding and sub
 
 HaowenX -- 2025-12-11 11:43
 BlackJack works. Roulette is being worked on. Need to make the balance work alongside blackjack.
+
+HaowenX -- 2025-12-12 11:43
+Blackjack CSS fixed, still need to implement the multipliar on tuna on it though, and trying to fix the background color. Poker is getting started
+Natalie worked on leaderboard and it works. Ashley broke it.

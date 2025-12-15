@@ -36,7 +36,19 @@ pfps = ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdo.lolwot.c
 def homepage():
     if not 'u_rowid' in session:
         return redirect("/login")
-    return render_template("home.html", user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
+    else:
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT * FROM user_base ORDER BY wins DESC LIMIT 5;"
+        c.execute(query)
+        data = c.fetchall()
+        leaderboard = [[1, data[0][2], data[0][0], data[0][6]],
+                            [2, data[1][2], data[1][0], data[1][6]],
+                            [3, data[2][2], data[2][0], data[2][6]],
+                            [4, data[3][2], data[3][0], data[3][6]],
+                            [5, data[4][2], data[4][0], data[4][6]],]
+        print(data[0][6])
+        return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
 
 # USER INTERACTIONS
 @app.route('/login', methods=["GET", "POST"])
@@ -78,7 +90,6 @@ def store():
             return redirect('/store')
         db.commit()
         db.close()
-    #key = open('keys/key_The-Cat-API.txt', 'r').read()
     with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search?limit=3') as resp:
         with urllib.request.urlopen('https://random-words-api.kushcreates.com/api?words=3') as resp2:
             resp = resp.read().decode()
@@ -93,21 +104,21 @@ def store():
             nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
             resp2 = resp2.read().decode()
             json_obj2 = json.loads(resp2)
+            print(json_obj2)
 
             if (nums[0] > data):
-                cats.append([json_obj2[0]['word'], json_obj[0]['url'], nums[0], 'disabled'])
+                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], 'disabled'])
             else:
-                cats.append([json_obj2[0]['word'], json_obj[0]['url'], nums[0], ''])
+                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], ''])
             if (nums[1] > data):
-                cats.append([json_obj2[1]['word'], json_obj[1]['url'], nums[1], 'disabled'])
+                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], 'disabled'])
             else:
-                cats.append([json_obj2[1]['word'], json_obj[1]['url'], nums[1], ''])
+                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], ''])
             if (nums[2] > data):
-                cats.append([json_obj2[2]['word'], json_obj[2]['url'], nums[2], 'disabled'])
+                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], 'disabled'])
             else:
-                cats.append([json_obj2[2]['word'], json_obj[2]['url'], nums[2], ''])
+                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], ''])
 
-    print(data)
     db.commit()
     db.close()
     return render_template("store.html", cats=cats, tuna=data)
@@ -196,14 +207,15 @@ def profile(u_rowid):
     c = db.cursor()
     inv_list = fetch("user_base", f"ROWID={u_rowid}", "inv")
     inv_list = inv_list[0][0].split()
-    print(inv_list)
     cat_list = []
+    print(inv_list)
     for cat in inv_list:
         query = f"SELECT * FROM cats WHERE id=\'{cat}\';"
         c.execute(query)
         cats = c.fetchall()
-        cat_list.append(list(cats[0]))
-    print(cat_list)
+        if not (len(cats) == 0):
+                print("Cats: " + str(cats))
+                cat_list.append(list(cats[0]))
 
     # renders page
     return render_template("profile.html",
@@ -226,6 +238,23 @@ def blackjack():
     db.close()
     return render_template('blj.html', won=data[0][0])
 
+@app.route('/poker', methods=['GET', 'POST'])
+def poker():
+    if request.method == 'POST':
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        c.execute(query)
+        cash = c.fetchall()[0][0]
+        if (int(cash) > 50):
+            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
+            c.execute(query)
+        else:
+            return redirect('/poker')
+        db.commit()
+        db.close()
+    return render_template('poker.html')
+
 @app.route('/slots')
 def slots():
     db = sqlite3.connect(DB_FILE)
@@ -242,6 +271,10 @@ def addtuna():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     tuna = request.args.get('num')
+    won = request.args.get('win')
+    if won == 'true':
+        query = f"UPDATE user_base SET wins = wins + 1 where rowid = {session['u_rowid'][0]}"
+        c.execute(query)
     query = f"UPDATE user_base SET cash = cash + {tuna} where rowid = {session['u_rowid'][0]}"
     c.execute(query)
     query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
@@ -249,11 +282,19 @@ def addtuna():
     data = c.fetchall()
     db.commit()
     db.close()
+    print(data)
     return data
 
 @app.route('/rl', methods=["GET", "POST"])
 def rl():
-    return render_template("rl.html")
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
+    c.execute(query)
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return render_template('rl.html', won=data[0][0])
 
 @app.route('/sound')
 def sound():

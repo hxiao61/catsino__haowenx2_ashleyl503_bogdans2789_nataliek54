@@ -35,7 +35,7 @@ handle.addEventListener("click", () => {
   clearConfetti();
 
   spinSound.play();
-  updateBalance(-50);
+  updateBalance(-50, false);
 
   // randomize
   reels.forEach((reel) => {
@@ -51,8 +51,8 @@ handle.addEventListener("click", () => {
   }, spinDuration);
 });
 
-async function updateBalance(increment) {
-  const response = await fetch("/addtuna?num="+increment, {method: 'POST'});
+async function updateBalance(increment, won) {
+  const response = await fetch("/addtuna?num="+increment + "&win=" + won, {method: 'POST'});
   if (response.ok) {
     const data = await response.json();
     const newBalance = data[0]
@@ -68,7 +68,7 @@ function checkResult() {
   if (symbol1 === symbol2 && symbol2 === symbol3) {
     winSound.play();
     launchConfetti();
-    updateBalance(2000);
+    updateBalance(2000, true);
   } else {
     resultMessage.textContent = "";
     resultMessage.classList.add("show-message");

@@ -32,15 +32,25 @@ function clearConfetti() {
   }
 }
 
+async function updateBalance(increment, won) {
+  const response = await fetch("/addtuna?num="+increment + "&win=" + won, {method: 'POST'});
+  if (response.ok) {
+    const data = await response.json();
+    const newBalance = data[0]
+    document.getElementById('balance').innerText = newBalance;
+  }
+}
 
 function one() { //1 - 18
-  let x = getRndInteger(1, 18);
+  let x = getRndInteger(0, 36);
+    updateBalance(-50, false);
   if (1 <= x <= 18) {
-    console.log('a');
+    updateBalance(100, true);
   }
 }
 
 document.getElementById("one").addEventListener('click', () => {
   one();
+  console.log('a');
   launchConfetti();
 });
