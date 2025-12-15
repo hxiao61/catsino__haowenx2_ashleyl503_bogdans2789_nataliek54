@@ -5,7 +5,6 @@ const reels = [
 ];
 
 const handle = document.getElementById("handle");
-const resultMessage = document.getElementById("resultMessage");
 const confettiContainer = document.getElementById("confetti");
 
 const symbols = ["😺", "😸", "😻", "🙀", "😼"];
@@ -16,8 +15,6 @@ let lowBal = false;
 const spinSound = new Audio('cha-ching.mp3'); // Spin effect
 const winSound = new Audio("cha-ching.mp3");
 const nonWinSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5638"); //sad trombone
-
-
 
 handle.addEventListener("click", () => {
 
@@ -69,10 +66,6 @@ function checkResult() {
     winSound.play();
     launchConfetti();
     updateBalance(2000, true);
-  } else {
-    resultMessage.textContent = "";
-    resultMessage.classList.add("show-message");
-
   }
 }
 
