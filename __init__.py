@@ -251,21 +251,15 @@ def addtuna():
     db.close()
     return data
 
+@app.route('/rl', methods=["GET", "POST"])
+def rl():
+    return render_template("rl.html")
 
 @app.route('/sound')
 def sound():
     return send_file('cha-ching.mp3')
 
-@app.route('/rl')
-def slots():
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
-    c.execute(query)
-    data = c.fetchall()
-    db.commit()
-    db.close()
-    return render_template('slots.html', won=data[0][0])
+
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):
