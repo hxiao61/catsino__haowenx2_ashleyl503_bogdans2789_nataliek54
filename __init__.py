@@ -104,19 +104,20 @@ def store():
             nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
             resp2 = resp2.read().decode()
             json_obj2 = json.loads(resp2)
+            print(json_obj2)
 
             if (nums[0] > data):
-                cats.append([json_obj2[0]['word'], json_obj[0]['url'], nums[0], 'disabled'])
+                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], 'disabled'])
             else:
-                cats.append([json_obj2[0]['word'], json_obj[0]['url'], nums[0], ''])
+                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], ''])
             if (nums[1] > data):
-                cats.append([json_obj2[1]['word'], json_obj[1]['url'], nums[1], 'disabled'])
+                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], 'disabled'])
             else:
-                cats.append([json_obj2[1]['word'], json_obj[1]['url'], nums[1], ''])
+                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], ''])
             if (nums[2] > data):
-                cats.append([json_obj2[2]['word'], json_obj[2]['url'], nums[2], 'disabled'])
+                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], 'disabled'])
             else:
-                cats.append([json_obj2[2]['word'], json_obj[2]['url'], nums[2], ''])
+                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], ''])
 
     db.commit()
     db.close()
@@ -207,11 +208,14 @@ def profile(u_rowid):
     inv_list = fetch("user_base", f"ROWID={u_rowid}", "inv")
     inv_list = inv_list[0][0].split()
     cat_list = []
+    print(inv_list)
     for cat in inv_list:
         query = f"SELECT * FROM cats WHERE id=\'{cat}\';"
         c.execute(query)
         cats = c.fetchall()
-        cat_list.append(list(cats[0]))
+        if not (len(cats) == 0):
+                print("Cats: " + str(cats))
+                cat_list.append(list(cats[0]))
 
     # renders page
     return render_template("profile.html",
