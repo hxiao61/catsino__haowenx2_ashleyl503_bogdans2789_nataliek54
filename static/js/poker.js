@@ -1,9 +1,9 @@
 let cards = [];
 let deckId = "";
+let bet = 0;
 
 async function Setup()
 {
-  let testText = document.getElementById('test');
   let idResponse = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
   let idData = await idResponse.json();
   deckId = idData.deck_id;
@@ -23,4 +23,10 @@ async function Setup()
   document.getElementById('cds').appendChild(document.createTextNode(cards[3].code));
   document.getElementById('cds').appendChild(document.createTextNode(cards[4].code));
 
+}
+
+function SetBet()
+{
+  bet = document.getElementById('betIN').value;
+  document.getElementById('betOUT').innerText = bet;
 }
