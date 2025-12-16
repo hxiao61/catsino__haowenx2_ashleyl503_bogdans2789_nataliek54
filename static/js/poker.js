@@ -23,6 +23,18 @@ async function Setup()
   document.getElementById('cds').appendChild(document.createTextNode(cards[3].code + " "));
   document.getElementById('cds').appendChild(document.createTextNode(cards[4].code));
   bet = document.getElementById('betOUT').value;
+  HandConvert();
+}
+
+function HandConvert()
+{
+  for (let i = 0; i < cards.length; i++)
+  {
+    if (cards[i].value.localeCompare("JACK")) cards[i].value = "11";
+    else if (cards[i].value.localeCompare("QUEEN")) cards[i].value = "12";
+    else if (cards[i].value.localeCompare("KING")) cards[i].value = "13";
+    else if (cards[i].value.localeCompare("ACE")) cards[i].value = "14";
+  }
 }
 
 function CheckHand()
@@ -34,20 +46,21 @@ function CheckHand()
   /*
   0 = royal flush
   1 = straight flush
-  2 = four of a kind
-  3 = full house
+  2 = four of a kind        `
+  3 = full house            `
   4 = flush
   5 = straight
-  7 = three of a kind
-  8 = two pair
-  9 = one pair
+  7 = three of a kind       `
+  8 = two pair              `
+  9 = one pair              `
   */
 
   cards.sort();
 
-  for (let i = 1; i < cards.length; i++) //checking for pairs, triples and fours of a kind
+  for (let i = 1; i < cards.length; i++)
+  //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
   {
-    if (cards[i] == cards[i-1])
+    if (cards[i]. == cards[i-1])
     {
       hasHand = 1;
       if (cards[i] == cards[i+1] && i<cards.length-1)
@@ -68,8 +81,10 @@ function CheckHand()
     }
   }
 
-  if (hands[9] == 2)
+  if (hands[9] == 2) //checking for TWO PAIR
     hands[8]++;
-  if (hands[9] == 1 && hands[7] == 1)
-    hands[]
+  if (hands[9] == 1 && hands[7] == 1) //checking for FULL HOUSE
+    hands[3]++;
+
+  if (hands)
 }
