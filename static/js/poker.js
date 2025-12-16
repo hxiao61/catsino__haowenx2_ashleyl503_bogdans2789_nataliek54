@@ -30,23 +30,46 @@ function CheckHand()
   let message = document.getElementById('msg');
   let hasHand = 0;
   let multiplier = 0;
+  let hands= [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  /*
+  0 = royal flush
+  1 = straight flush
+  2 = four of a kind
+  3 = full house
+  4 = flush
+  5 = straight
+  7 = three of a kind
+  8 = two pair
+  9 = one pair
+  */
 
-  let tempCards = cards;
-  for (let i = 0; i < cards.length; i++)
+  cards.sort();
+
+  for (let i = 1; i < cards.length; i++) //checking for pairs, triples and fours of a kind
   {
-    tempCards.splice(i, 1);
-    if (tempCards.includes(cards[i]))
+    if (cards[i] == cards[i-1])
     {
       hasHand = 1;
-      multiplier = 1;
-      tempCards.splice(indexOf(cards[i]), 1)
-        multiplier = 3;
-
+      if (cards[i] == cards[i+1] && i<cards.length-1)
+      {
+        hands[7]++;
+        i+=2;
+      }
+      if (cards[i] == cards[i+2] && i<cards.length-2)
+      {
+        hands[2]++;
+        i+=3;
+      }
+      else
+      {
+        hands[9]++;
+        i++;
+      }
     }
   }
 
-  if (!hasHand)
-  {
-    message.innerText="You lost >:)";
-  }
+  if (hands[9] == 2)
+    hands[8]++;
+  if (hands[9] == 1 && hands[7] == 1)
+    hands[]
 }
