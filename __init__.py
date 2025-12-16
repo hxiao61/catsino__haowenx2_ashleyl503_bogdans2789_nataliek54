@@ -261,7 +261,8 @@ def poker():
             return redirect('/poker')
         db.commit()
         db.close()
-    return render_template('poker.html')
+        return render_template('poker.html', bet=request.form['theBet'], dealButton="<br><button id = 'start-btn' class='btn btn-success btn-lg' onclick='Setup()'>Deal</button>")
+    return render_template('poker.html', dealButton="")
 
 @app.route('/slots')
 def slots():
