@@ -65,7 +65,7 @@ function checkResult() {
   if (symbol1 === symbol2 && symbol2 === symbol3) {
     winSound.play();
     launchConfetti();
-    updateBalance(2000, true);
+    updateBalance(3000, true);
   }
 }
 

@@ -41,13 +41,17 @@ def homepage():
         c = db.cursor()
         query = f"SELECT * FROM user_base ORDER BY wins DESC LIMIT 5;"
         c.execute(query)
+        leaderboard = []
         data = c.fetchall()
-        leaderboard = [[1, data[0][2], data[0][0], data[0][6]],
-                            [2, data[1][2], data[1][0], data[1][6]],
-                            [3, data[2][2], data[2][0], data[2][6]],
-                            [4, data[3][2], data[3][0], data[3][6]],
-                            [5, data[4][2], data[4][0], data[4][6]],]
-        print(data[0][6])
+        if (len(data) > 4):
+            leaderboard = [[1, data[0][2], data[0][0], data[0][6]],
+                                [2, data[1][2], data[1][0], data[1][6]],
+                                [3, data[2][2], data[2][0], data[2][6]],
+                                [4, data[3][2], data[3][0], data[3][6]],
+                                [5, data[4][2], data[4][0], data[4][6]],]
+            print(data[0][6])
+        if request.args.get('error') == 'storefail':
+            return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0], error='Store could not be loaded.')
         return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
 
 # USER INTERACTIONS
@@ -90,38 +94,42 @@ def store():
             return redirect('/store')
         db.commit()
         db.close()
-    with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search?limit=3') as resp:
-        with urllib.request.urlopen('https://random-words-api.kushcreates.com/api?words=3') as resp2:
-            resp = resp.read().decode()
-            cats = []
-            json_obj = json.loads(resp)
+    try:
+        with urllib.request.urlopen('https://api.thecatapi.com/v1/images/search?limit=3') as resp:
+            with urllib.request.urlopen('https://random-words-api.kushcreates.com/api?words=3') as resp2:
+                resp = resp.read().decode()
+                cats = []
+                json_obj = json.loads(resp)
 
-            db = sqlite3.connect(DB_FILE)
-            c = db.cursor()
-            query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-            c.execute(query)
-            data = int(c.fetchall()[0][0])
-            nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
-            resp2 = resp2.read().decode()
-            json_obj2 = json.loads(resp2)
-            print(json_obj2)
+                db = sqlite3.connect(DB_FILE)
+                c = db.cursor()
+                query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+                c.execute(query)
+                data = int(c.fetchall()[0][0])
+                nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
+                resp2 = resp2.read().decode()
+                json_obj2 = json.loads(resp2)
+                print(json_obj2)
 
-            if (nums[0] > data):
-                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], 'disabled'])
-            else:
-                cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], ''])
-            if (nums[1] > data):
-                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], 'disabled'])
-            else:
-                cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], ''])
-            if (nums[2] > data):
-                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], 'disabled'])
-            else:
-                cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], ''])
+                if (nums[0] > data):
+                    cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], 'disabled'])
+                else:
+                    cats.append([json_obj2[0]['word'].split()[0], json_obj[0]['url'], nums[0], ''])
+                if (nums[1] > data):
+                    cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], 'disabled'])
+                else:
+                    cats.append([json_obj2[1]['word'].split()[0], json_obj[1]['url'], nums[1], ''])
+                if (nums[2] > data):
+                    cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], 'disabled'])
+                else:
+                    cats.append([json_obj2[2]['word'].split()[0], json_obj[2]['url'], nums[2], ''])
 
-    db.commit()
-    db.close()
-    return render_template("store.html", cats=cats, tuna=data)
+        db.commit()
+        db.close()
+        return render_template("store.html", cats=cats, tuna=data)
+    except urllib.error.URLError as e:
+        print(e.reason)
+        return redirect('/?error=storefail')
 
 @app.route('/buy', methods=["GET", "POST"]) #takes in cat image and name like /buy?id=XXimage=XX&cost=XX
 def buy():
@@ -320,7 +328,7 @@ def create_user(username, password):
     if not username in list:
         # creates user in table
         pfp = random.choice(pfps)
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 1000, 0)")
+        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 3000, 0)")
 
         # set path
         c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")
