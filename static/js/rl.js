@@ -43,14 +43,14 @@ async function updateBalance(increment, won) {
 
 function one() { //1 - 18
   let x = getRndInteger(0, 36);
-    updateBalance(-50, false);
+  console.log(x);
   if (1 <= x <= 18) {
     updateBalance(100, true);
+  } else {
+    updateBalance(-500, false);
   }
 }
 
 document.getElementById("one").addEventListener('click', () => {
   one();
-  console.log('a');
-  launchConfetti();
 });
