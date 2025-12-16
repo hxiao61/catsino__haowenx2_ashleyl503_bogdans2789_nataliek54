@@ -228,16 +228,6 @@ def profile(u_rowid):
         wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0],
         inventory = cat_list)
 
-@app.route('/blj')
-def blackjack():
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
-    c.execute(query)
-    data = c.fetchall()
-    db.close()
-    return render_template('blj.html', won=data[0][0])
-
 @app.route('/poker', methods=['GET', 'POST'])
 def poker():
     if request.method == 'POST':
@@ -255,6 +245,26 @@ def poker():
         db.close()
         return render_template('poker.html', bet=request.form['theBet'], dealButton="<br><button id = 'start-btn' class='btn btn-success btn-lg' onclick='Setup()'>Deal</button>")
     return render_template('poker.html', dealButton="")
+
+@app.route('/blj', methods=['GET', 'POST'])
+def blj():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
+    c.execute(query)
+    cash = c.fetchall()[0][0]
+    if request.method == 'POST':
+        if (int(cash) > int(request.form['theBet'])):
+            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
+            c.execute(query)
+        else:
+            return redirect('/blj')
+        db.commit()
+        db.close()
+        return render_template('blj.html', bet=request.form['theBet'], dealButton="<button id = 'start-btn' class='btn btn-success btn-lg' onclick='startGame()'>Start New Game</button> <button id = 'hit-btn' class='btn btn-warning btn-lg' onclick='hit()'>Hit</button> <button id = 'stand-btn' class='btn btn-danger btn-lg' onclick='stand()'>Stand</button>")
+    db.commit()
+    db.close()
+    return render_template('blj.html', dealButton="", won=cash)
 
 @app.route('/slots')
 def slots():

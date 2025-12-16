@@ -30,8 +30,11 @@ HaowenX -- 2025-12-12 11:43
 Blackjack CSS fixed, still need to implement the multipliar on tuna on it though, and trying to fix the background color. Poker is getting started
 Natalie worked on leaderboard and it works. Ashley broke it.
 
-AshleyL -- 2025-12-12 11:46
+AshleyL -- 2025-15-12 11:46
 Natalie fixed double generated cat names.
 Natalie helped Ashley with linking confetti, still doesn't work. She also helped with tuna counts.
 Haowen worked on inputs for BlackJack.
 Bogdan worked on Poker.
+
+HaowenX -- 2025-12-16 11:44
+Made it so that blackjack takes your money now need to wrok on it so that it gives u back a multipliar. Bogdan working on poker, ashley working on the api keys and sutff. Ashley still working on Roulette
