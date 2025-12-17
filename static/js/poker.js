@@ -24,6 +24,7 @@ async function Setup()
   document.getElementById('cds').appendChild(document.createTextNode(cards[4].code));
   bet = document.getElementById('betOUT').value;
   HandConvert();
+  CheckHand();
 }
 
 function HandConvert()
@@ -42,6 +43,9 @@ function CheckHand()
   let message = document.getElementById('msg');
   let hasHand = 0;
   let multiplier = 0;
+  let handValues = [125, 25, 12.5, 4.5, 3, 2.5, 2, 1.5, 1];
+  let handMsgs = ["royal flush", "straight flush", "four of a kind", "full house",
+                  "flush", "straight", "three of a kind", "two pair", "one pair"];
   let hands= [0, 0, 0, 0, 0, 0, 0, 0, 0];
   /*
   0 = royal flush
@@ -62,7 +66,6 @@ function CheckHand()
   {
     if ((parseInt(hands.cards[i].value). == (parseInt(hands.cards[i-1].value))
     {
-      hasHand = 1;
       if (i<cards.length-1 && (parseInt(hands.cards[i].value) == (parseInt(hands.cards[i+1].value))
       {
         hands[7]++;
@@ -106,4 +109,16 @@ function CheckHand()
 
   if (hands[1] && parseInt(hands.cards[0].value)==10) hands[0]++; //checks for royal flush
 
+
+  for (let i = 0; i < hands.length; i++)
+  {
+    if (hands[i])
+    {
+      msg.innerText = "You got " + handMsgs[i] +"!";
+      multiplier = handValues[i];
+      hasHand = 1;
+      break;
+    }
+  }
+  if (!hasHand) msg.innerText = "You lost :(";
 }
