@@ -269,7 +269,7 @@ def blj():
             return redirect('/blj')
         db.commit()
         db.close()
-        return render_template('blj.html', bet=request.form['theBet'], dealButton="<button id = 'start-btn' class='btn btn-success btn-lg' onclick='startGame()'>Start New Game</button> <button id = 'hit-btn' class='btn btn-warning btn-lg' onclick='hit()'>Hit</button> <button id = 'stand-btn' class='btn btn-danger btn-lg' onclick='stand()'>Stand</button>")
+        return render_template('blj.html', won=cash-int(request.form['theBet']), bet=request.form['theBet'], dealButton="<button id = 'start-btn' class='btn btn-success btn-lg' onclick='startGame()'>Start New Game</button> <button id = 'hit-btn' class='btn btn-warning btn-lg' onclick='hit()'>Hit</button> <button id = 'stand-btn' class='btn btn-danger btn-lg' onclick='stand()'>Stand</button>")
     db.commit()
     db.close()
     return render_template('blj.html', dealButton="", won=cash)

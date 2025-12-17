@@ -162,6 +162,6 @@ function endGame(msg) {
     document.getElementById('message').innerText = msg;
     document.getElementById('hit-btn').disabled = true;
     document.getElementById('stand-btn').disabled = true;
-    document.getElementById('start-btn').disabled = false;
+    document.getElementById('start-btn').disabled = true;
     updateDealerScoreUI();
 }
