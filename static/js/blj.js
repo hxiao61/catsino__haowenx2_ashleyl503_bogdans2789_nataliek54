@@ -2,8 +2,11 @@ let deckId = "";
 let dealerCards = [];
 let playerCards = [];
 let gameActive = false;
+let paidOut = false;
 
 async function startGame(){
+    paidOut = false;
+
     document.getElementById('message').innerText = "";
     document.getElementById('dealer-hand').innerHTML = "";
     document.getElementById('player-hand').innerHTML = "";
@@ -69,10 +72,10 @@ async function stand(){
 
 
     if(dealerScore > 21) {
-        endGame("Dealer Busted, you win");
+        endGame("Dealer Busted. You win");
         //2x multipliar
     } else if (playerScore > dealerScore){
-        endGame("You beat the Dealer!");
+        endGame("You win. You have higher score");
         // 2x multipliar
     } else if (playerScore < dealerScore){
         endGame("Dealer Wins");
@@ -156,12 +159,40 @@ function checkForBlackjack() {
         // 2.5x multipliar.
     }
 }
+async function updateBalance(increment, won){
+    const response = await fetch("/addtuna?num=" + increment + "&win=" + won, { method: 'POST' });
+    if (response.ok) {
+        const data = await response.json();
+        const newBalance = data[0][0];
+       document.getElementById('balance').innerText = newBalance;
+    }
+}
+
+
 
 function endGame(msg) {
     gameActive = false;
+    if (paidOut) return;
+    paidOut = true;
     document.getElementById('message').innerText = msg;
     document.getElementById('hit-btn').disabled = true;
     document.getElementById('stand-btn').disabled = true;
-    document.getElementById('start-btn').disabled = true;
+    document.getElementById('start-btn').disabled = false;
     updateDealerScoreUI();
+
+    const betInput = document.querySelector('input[name="theBet"]');
+    const bet = parseInt(betInput.value);
+
+    let result = "LOSE";
+    if (msg.includes("Blackjack")) result = "BLACKJACK";
+    else if (msg.includes("You win") || msg.includes("Dealer Busted")) result = "WIN";
+    else if (msg.includes("Tie")) result = "TIE";
+
+    if (result === "BLACKJACK") {
+        updateBalance(Math.floor(bet * 2.5), true);
+    } else if (result === "WIN") {
+        updateBalance(bet * 2, true);
+    } else if (result === "TIE") {
+        updateBalance(bet, false);
+    }
 }
