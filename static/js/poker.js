@@ -45,11 +45,11 @@ function CheckHand()
   let hands= [0, 0, 0, 0, 0, 0, 0, 0, 0];
   /*
   0 = royal flush
-  1 = straight flush
+  1 = straight flush        `
   2 = four of a kind        `
   3 = full house            `
-  4 = flush
-  5 = straight
+  4 = flush                 `
+  5 = straight              `
   7 = three of a kind       `
   8 = two pair              `
   9 = one pair              `
@@ -60,15 +60,15 @@ function CheckHand()
   for (let i = 1; i < cards.length; i++)
   //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
   {
-    if (cards[i]. == cards[i-1])
+    if ((parseInt(hands.cards[i].value). == (parseInt(hands.cards[i-1].value))
     {
       hasHand = 1;
-      if (cards[i] == cards[i+1] && i<cards.length-1)
+      if (i<cards.length-1 && (parseInt(hands.cards[i].value) == (parseInt(hands.cards[i+1].value))
       {
         hands[7]++;
         i+=2;
       }
-      if (cards[i] == cards[i+2] && i<cards.length-2)
+      if (i<cards.length-2 && (parseInt(hands.cards[i].value) == (parseInt(hands.cards[i+2].value))
       {
         hands[2]++;
         i+=3;
@@ -86,5 +86,24 @@ function CheckHand()
   if (hands[9] == 1 && hands[7] == 1) //checking for FULL HOUSE
     hands[3]++;
 
-  if (hands)
+  if (parseInt(hands.cards[4].value)==parseInt(hands.cards[3].value)+1
+    && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1
+    && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1
+    && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
+  else if (parseInt(hands.cards[4].value)==13 && parseInt(hands.cards[0].value)==2
+    && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1
+    && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1
+    && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
+  //checks for straight
+
+  if (cards[0].suit.localeCompare(cards[1].suit)
+    && cards[0].suit.localeCompare(cards[2].suit
+    && cards[0].suit.localeCompare(cards[3].suit
+    && cards[0].suit.localeCompare(cards[4].suit) hands[4]++;
+  //checks for flush
+
+  if (hands[5] && hands[4]) hands[1]++; //checks for straught flush
+
+  if (hands[1] && parseInt(hands.cards[0].value)==10) hands[0]++; //checks for royal flush
+
 }
