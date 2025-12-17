@@ -44,10 +44,25 @@ async function updateBalance(increment, won) {
 function one() { //1 - 18
   let x = getRndInteger(0, 36);
   console.log(x);
-  if (1 <= x <= 18) {
-    updateBalance(100, true);
+  console.log(1 <= x && x<= 18);
+  if (1 <= x && x<= 18) {
+    updateBalance(50, true);
   } else {
-    updateBalance(-500, false);
+    updateBalance(-100, false);
+  }
+}
+
+document.getElementById("one").addEventListener('click', () => {
+  one();
+});
+
+
+function two() { //even
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  console.log(x % 2 == 0);
+  if (x % 2 ==0) {
+    updateBalance(50, true);
   }
 }
 
