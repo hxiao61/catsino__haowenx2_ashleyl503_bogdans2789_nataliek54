@@ -238,7 +238,7 @@ def profile(u_rowid):
 
 @app.route('/poker', methods=['GET', 'POST'])
 def poker():
-    if request.method == 'POST':
+    if request.method == 'POST' and 'theBet' in request.form:
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
         query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"

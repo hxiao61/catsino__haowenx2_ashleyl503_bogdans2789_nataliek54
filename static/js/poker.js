@@ -27,6 +27,7 @@ async function Setup()
   CheckHand();
 }
 
+
 function HandConvert()
 {
   for (let i = 0; i < cards.length; i++)
@@ -44,8 +45,7 @@ function CheckHand()
   let hasHand = 0;
   let multiplier = 0;
   let handValues = [125, 25, 12.5, 4.5, 3, 2.5, 2, 1.5, 1];
-  let handMsgs = ["royal flush", "straight flush", "four of a kind", "full house",
-                  "flush", "straight", "three of a kind", "two pair", "one pair"];
+  let handMsgs = ["royal flush", "straight flush", "four of a kind", "full house", "flush", "straight", "three of a kind", "two pair", "one pair"];
   let hands= [0, 0, 0, 0, 0, 0, 0, 0, 0];
   /*
   0 = royal flush
@@ -64,14 +64,14 @@ function CheckHand()
   for (let i = 1; i < cards.length; i++)
   //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
   {
-    if ((parseInt(hands.cards[i].value). == (parseInt(hands.cards[i-1].value))
+    if (parseInt(hands.cards[i].value) == parseInt(hands.cards[i-1].value))
     {
-      if (i<cards.length-1 && (parseInt(hands.cards[i].value) == (parseInt(hands.cards[i+1].value))
+      if (i<cards.length-1 && (parseInt(hands.cards[i].value) == parseInt(hands.cards[i+1].value)))
       {
         hands[7]++;
         i+=2;
       }
-      if (i<cards.length-2 && (parseInt(hands.cards[i].value) == (parseInt(hands.cards[i+2].value))
+      if (i<cards.length-2 && (parseInt(hands.cards[i].value) == parseInt(hands.cards[i+2].value)))
       {
         hands[2]++;
         i+=3;
@@ -89,20 +89,11 @@ function CheckHand()
   if (hands[9] == 1 && hands[7] == 1) //checking for FULL HOUSE
     hands[3]++;
 
-  if (parseInt(hands.cards[4].value)==parseInt(hands.cards[3].value)+1
-    && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1
-    && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1
-    && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
-  else if (parseInt(hands.cards[4].value)==13 && parseInt(hands.cards[0].value)==2
-    && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1
-    && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1
-    && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
+  if (parseInt(hands.cards[4].value)==parseInt(hands.cards[3].value)+1 && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1 && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1 && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
+  else if (parseInt(hands.cards[4].value)==13 && parseInt(hands.cards[0].value)==2 && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1 && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1 && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
   //checks for straight
 
-  if (cards[0].suit.localeCompare(cards[1].suit)
-    && cards[0].suit.localeCompare(cards[2].suit
-    && cards[0].suit.localeCompare(cards[3].suit
-    && cards[0].suit.localeCompare(cards[4].suit) hands[4]++;
+  if (!cards[0].suit.localeCompare(cards[1].suit) && !cards[0].suit.localeCompare(cards[2].suit) && !cards[0].suit.localeCompare(cards[3].suit) && !cards[0].suit.localeCompare(cards[4].suit)) hands[4]++;
   //checks for flush
 
   if (hands[5] && hands[4]) hands[1]++; //checks for straught flush
@@ -120,5 +111,5 @@ function CheckHand()
       break;
     }
   }
-  if (!hasHand) msg.innerText = "You lost :(";
+  if (hasHand==0) msg.innerText = "You lost :(";
 }
