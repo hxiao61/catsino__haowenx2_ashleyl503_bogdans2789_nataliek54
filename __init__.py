@@ -244,7 +244,7 @@ def poker():
         query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
         c.execute(query)
         cash = c.fetchall()[0][0]
-        if (int(cash) > 50):
+        if (int(cash) > int(request.form['theBet'])):
             query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
             c.execute(query)
         else:
