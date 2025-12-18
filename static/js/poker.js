@@ -61,20 +61,20 @@ function CheckHand()
 
   cards.sort();
 
-  for (let i = 1; i < cards.length; i++)
   //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
+  for (let i = 1; i < cards.length; i++)
   {
-    if (parseInt(hands.cards[i].value) == parseInt(hands.cards[i-1].value))
+    if (hands.cards[i].value == hands.cards[i-1].value)
     {
-      if (i<cards.length-1 && (parseInt(hands.cards[i].value) == parseInt(hands.cards[i+1].value)))
-      {
-        hands[7]++;
-        i+=2;
-      }
-      if (i<cards.length-2 && (parseInt(hands.cards[i].value) == parseInt(hands.cards[i+2].value)))
+      if (i<cards.length-2 && (hands.cards[i].value == hands.cards[i+2].value))
       {
         hands[2]++;
         i+=3;
+      }
+      else if (i<cards.length-1 && (hands.cards[i].value == hands.cards[i+1].value))
+      {
+        hands[7]++;
+        i+=2;
       }
       else
       {
@@ -93,17 +93,17 @@ function CheckHand()
   else if (parseInt(hands.cards[4].value)==13 && parseInt(hands.cards[0].value)==2 && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1 && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1 && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
   //checks for straight
 
-  if (!cards[0].suit.localeCompare(cards[1].suit) && !cards[0].suit.localeCompare(cards[2].suit) && !cards[0].suit.localeCompare(cards[3].suit) && !cards[0].suit.localeCompare(cards[4].suit)) hands[4]++;
+  if (cards[0].suit.localeCompare(cards[1].suit)==0 && cards[0].suit.localeCompare(cards[2].suit)==0 && cards[0].suit.localeCompare(cards[3].suit)==0 && cards[0].suit.localeCompare(cards[4].suit)==0) hands[4]++;
   //checks for flush
 
-  if (hands[5] && hands[4]) hands[1]++; //checks for straught flush
+  if (hands[5]>0 && hands[4]>0) hands[1]++; //checks for straught flush
 
-  if (hands[1] && parseInt(hands.cards[0].value)==10) hands[0]++; //checks for royal flush
+  if (hands[1]>0 && parseInt(hands.cards[0].value)==10) hands[0]++; //checks for royal flush
 
 
   for (let i = 0; i < hands.length; i++)
   {
-    if (hands[i])
+    if (hands[i]>0)
     {
       msg.innerText = "You got " + handMsgs[i] +"!";
       multiplier = handValues[i];
