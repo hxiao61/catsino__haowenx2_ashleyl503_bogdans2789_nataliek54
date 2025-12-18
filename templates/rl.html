@@ -11,19 +11,21 @@
 
 <body>
   <h1> Catsino: Roulette! </h1>
-  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.888casino.com%2Fblog%2Fsites%2Fnewblog.888casino.com%2Ffiles%2Finline-images%2Famerican-roulette-wheel_0.jpg&f=1&nofb=1&ipt=09dee538632d4a8f5c322160856db93142dd36cf060f8392444916503e58571d"></img>
+  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.888casino.com%2Fblog%2Fsites%2Fnewblog.888casino.com%2Ffiles%2Finline-images%2Famerican-roulette-wheel_0.jpg&f=1&nofb=1&ipt=09dee538632d4a8f5c322160856db93142dd36cf060f8392444916503e58571d" class="center"></img>
 
-  <button class="button" id="one">1 to 18</button>
-  <button class="button" id="two" onclick="two()">even</button>
-  <button class="button" id="three" onclick="three()">red</button>
-  <button class="button" id="four" onclick="four()">black</button>
-  <button class="button" id="five" onclick="five()">odd</button>
-  <button class="button" id="six" onclick="six()">19 to 36</button>
+  <div class="center1">
+    <button class="button" id="one">1 to 18</button>
+    <button class="button" id="two">even</button>
+    <button class="button" id="three">red</button>
+    <button class="button" id="four" onclick="four()">black</button>
+    <button class="button" id="five" onclick="five()">odd</button>
+    <button class="button" id="six" onclick="six()">19 to 36</button>
+  </div>
 
   <br></br>
 
   <div class="container">
-    <div class="button-0">0</div>
+    <div class="green">0</div>
     <div class="red">3</div>
     <div class="black">6</div>
     <div class="red">9</div>
@@ -74,6 +76,8 @@
     <p class="cost"> Cost to spin: 50 🐟  </p>
     <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
   </div>
+
+  <div class="win"> {x} , YOU WON!!! </div>
 
   <div id="confetti" class="confetti"></div>
   <script src='../static/js/rl.js'></script>

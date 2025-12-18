@@ -1,7 +1,6 @@
 body {
-  background-color: #255e35;
+  background-color: #295E1E;
   font-family: 'monospace';
-
 }
 
 img {
@@ -54,19 +53,12 @@ img {
   background-color: white;
   border: 2px solid black;
   border-radius: 6px;
-  padding: 20px;
+  padding: 15px;
 }
 
 .button:active {
   box-shadow: 0 6px #000000;
   transform: translateY(4px);
-}
-
-.button-0 {
-  background-color: white;
-  border: 2px solid black;
-  border-radius: 6px;
-  padding: 20px;
 }
 
 form [type=number] {
@@ -82,4 +74,18 @@ form [type=submit] {
   border: 2px solid black;
   border-radius: 6px;
   padding: 10px;
+ }
+
+ .center {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 20%;
+ }
+
+ .center1 {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
  }

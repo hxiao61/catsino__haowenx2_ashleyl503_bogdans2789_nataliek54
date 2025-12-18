@@ -41,10 +41,10 @@ async function updateBalance(increment, won) {
   }
 }
 
-function one() { //1 - 18
+function one() { //bet on 1 - 18
   let x = getRndInteger(0, 36);
-  console.log(x);
-  console.log(1 <= x && x<= 18);
+  // console.log(x);
+  // console.log(1 <= x && x<= 18);
   if (1 <= x && x<= 18) {
     updateBalance(50, true);
   } else {
@@ -57,15 +57,51 @@ document.getElementById("one").addEventListener('click', () => {
 });
 
 
-function two() { //even
+function two() { //bet on even
   let x = getRndInteger(0, 36);
-  console.log(x);
-  console.log(x % 2 == 0);
-  if (x % 2 ==0) {
+  // console.log(x);
+  // console.log(x % 2 == 0);
+  if (x % 2 == 0) {
     updateBalance(50, true);
+  } else {
+    updateBalance(-100, false);
   }
 }
 
-document.getElementById("one").addEventListener('click', () => {
-  one();
+document.getElementById("two").addEventListener('click', () => {
+  two();
 });
+
+function three() { //bet on red
+  let x = getRndInteger(0, 36);
+  // console.log(x);
+  // console.log(x == 3 || x == 9 || x == 12 || x == 18 || x == 21 || x == 27 || x == 30||
+  //             x == 36 || x == 5 || x == 14 || x == 23 || x == 32 || x == 1 || x == 7 ||
+  //             x == 16 || x == 19 || x == 25 || x == 34);
+  if (x == 3 || x == 9 || x == 12 || x == 18 || x == 21 || x == 27 || x == 30||
+      x == 36 || x == 5 || x == 14 || x == 23 || x == 32 || x == 1 || x == 7 ||
+      x == 16 || x == 19 || x == 25 || x == 34) {
+    updateBalance(50, true);
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+document.getElementById("three").addEventListener('click', () => {
+  three();
+});
+
+function four() { //bet on black
+  let x = getRndInteger(0, 36);
+  // console.log(x);
+  // console.log(x == 3 || x == 9 || x == 12 || x == 18 || x == 21 || x == 27 || x == 30||
+  //             x == 36 || x == 5 || x == 14 || x == 23 || x == 32 || x == 1 || x == 7 ||
+  //             x == 16 || x == 19 || x == 25 || x == 34);
+  if (x == 6 || x == 9 || x == 12 || x == 18 || x == 21 || x == 27 || x == 30||
+      x == 36 || x == 5 || x == 14 || x == 23 || x == 32 || x == 1 || x == 7 ||
+      x == 16 || x == 19 || x == 25 || x == 34) {
+    updateBalance(50, true);
+  } else {
+    updateBalance(-100, false);
+  }
+}
