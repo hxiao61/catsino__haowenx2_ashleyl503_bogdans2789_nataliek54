@@ -39,17 +39,24 @@ def homepage():
     else:
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
+        cash = fetch("user_base",f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
+        c.execute("DELETE FROM user_base WHERE cash<0;")
+        if (cash <= 0):
+            session.pop("u_rowid", None)
+            return redirect('/login')
         query = f"SELECT * FROM user_base ORDER BY wins DESC LIMIT 5;"
         c.execute(query)
         leaderboard = []
         data = c.fetchall()
+        db.commit()
+        db.close()
         if (len(data) > 4):
-            leaderboard = [[1, data[0][2], data[0][0], data[0][6]],
-                                [2, data[1][2], data[1][0], data[1][6]],
-                                [3, data[2][2], data[2][0], data[2][6]],
-                                [4, data[3][2], data[3][0], data[3][6]],
-                                [5, data[4][2], data[4][0], data[4][6]],]
-            print(data[0][6])
+            leaderboard = [[1, data[0][2], data[0][0], data[0][6], data[0][3]],
+                                [2, data[1][2], data[1][0], data[1][6], data[1][3]],
+                                [3, data[2][2], data[2][0], data[2][6], data[2][3]],
+                                [4, data[3][2], data[3][0], data[3][6], data[3][3]],
+                                [5, data[4][2], data[4][0], data[4][6], data[4][3]]]
+            print(data[0][3])
         if request.args.get('error') == 'storefail':
             return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0], error='Store could not be loaded.')
         return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
@@ -75,6 +82,11 @@ def login():
                                 f"username = \"{request.form['username']}\"",
                                 "rowid")[0]
     if 'u_rowid' in session:
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        c.execute("DELETE FROM user_base WHERE cash<0;")
+        db.commit()
+        db.close()
         return redirect("/")
     return render_template("login.html", normal=True)
 
@@ -216,13 +228,11 @@ def profile(u_rowid):
     inv_list = fetch("user_base", f"ROWID={u_rowid}", "inv")
     inv_list = inv_list[0][0].split()
     cat_list = []
-    print(inv_list)
     for cat in inv_list:
         query = f"SELECT * FROM cats WHERE id=\'{cat}\';"
         c.execute(query)
         cats = c.fetchall()
         if not (len(cats) == 0):
-                print("Cats: " + str(cats))
                 cat_list.append(list(cats[0]))
 
     # renders page
@@ -291,6 +301,11 @@ def addtuna():
     c = db.cursor()
     tuna = request.args.get('num')
     won = request.args.get('win')
+    cash = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
+    if (cash < abs(int(tuna))):
+        print('a')
+        user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0]
+        check_ban(user, '/addtuna?num=num&win=false')
     if won == 'true':
         query = f"UPDATE user_base SET wins = wins + 1 where rowid = {session['u_rowid'][0]}"
         c.execute(query)
@@ -371,6 +386,19 @@ def update_inv(user, cashUpdt, newCash, invUpdt, newItem):
     c.execute(f"UPDATE user_base SET inv = \'{curInv}\' WHERE username=\'{user}\'")
     db.commit()
     db.close()
+
+def check_ban(username, original_link):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    curCash = fetch("user_base", f"username={user}", "cash")[0][0]
+    if (curCash <= 0):
+        c.execute(f"DELETE FROM user_base WHERE username='{username}';")
+        db.commit()
+        db.close()
+        return redirect('/login')
+    db.commit()
+    db.close()
+    return redirect(original_link)
 
 # Flask
 if __name__=='__main__':
