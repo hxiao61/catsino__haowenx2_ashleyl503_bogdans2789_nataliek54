@@ -42,12 +42,18 @@
       </div>
     </div>
 
-    <div class = "containr fluid">
+    <div class = "container fluid">
       <div class = "col">
         <form method='POST' action="/blj">
-          <input class='m-1' type="number" name="theBet" required>
+          <input class='m-1' type="number" name="theBet" value="{{bet}}" required>
           <input type="submit" name="sub1" class="m-1 p-1" value="Bet">
         </form>
+      </div>
+    </div>
+
+    <div class = "container fluid">
+      <div class = "col">
+        <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
       </div>
     </div>
 
