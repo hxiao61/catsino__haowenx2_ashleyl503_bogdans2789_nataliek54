@@ -83,12 +83,7 @@ form [type=submit] {
    width: 20%;
  }
 
- .center1 {
-   display: block;
-   margin-left: auto;
-   margin-right: auto;
-   width: 50%;
- }
+ .center1 {text-align: center;}
 
 .button0 {
   background-color: #255e35;

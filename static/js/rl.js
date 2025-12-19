@@ -41,14 +41,21 @@ async function updateBalance(increment, won) {
   }
 }
 
+function result(msg) {
+    document.getElementById('message').innerText = msg;
+}
+
+//BETTING ON TYPE FUNCTIONS
 function one() { //bet on 1 - 18
   let x = getRndInteger(0, 36);
   // console.log(x);
   // console.log(1 <= x && x <= 18);
   if (1 <= x && x<= 18) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
+    result('YOU LOST');
   }
 }
 
@@ -58,6 +65,7 @@ function two() { //bet on even
   // console.log(x % 2 == 0);
   if (x % 2 == 0) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
   }
@@ -73,6 +81,7 @@ function three() { //bet on red
       x == 36 || x == 5 || x == 14 || x == 23 || x == 32 || x == 1 || x == 7 ||
       x == 16 || x == 19 || x == 25 || x == 34) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
   }
@@ -88,6 +97,7 @@ function four() { //bet on black
       x == 17 || x == 20 || x == 26 || x == 29 || x == 35 || x == 4 || x == 10 ||
       x == 13 || x == 22 || x == 28 || x == 31) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
   }
@@ -99,6 +109,7 @@ function five() { //bet on odd
   // console.log(x % 2 != 0);
   if (x % 2 != 0) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
   }
@@ -110,6 +121,416 @@ function six() { //bet on 19 - 36
   // console.log(19 <= x && x <= 36);
   if (19 <= x && x<= 36) {
     updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+
+//BETTING ON VALUE FUNCTIONS
+function n0() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 0) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n1() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 1) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n2() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 2) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n3() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 3) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n4() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 4) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n5() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 5) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n6() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 6) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n7() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 7) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n8() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 8) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n9() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 9) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n10() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 10) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n11() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 11) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n12() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 12) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n13() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 13) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n14() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 14) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n15() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 15) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n16() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 16) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n17() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 17) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n18() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 18) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n19() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 19) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n20() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 20) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n21() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 21) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n22() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 22) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n23() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 23) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n24() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 24) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n25() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 25) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n26() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 26) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n27() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 27) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n28() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 28) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n29() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 29) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n30() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 30) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n31() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 31) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n32() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 32) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n33() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 33) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n34() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 34) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n35() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 35) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
+  } else {
+    updateBalance(-100, false);
+  }
+}
+
+function n36() {
+  let x = getRndInteger(0, 36);
+  console.log(x);
+  if (x == 36) {
+    updateBalance(50, true);
+    result('CONGRATULATIONS YOU WIN!!!');
   } else {
     updateBalance(-100, false);
   }
