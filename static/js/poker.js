@@ -32,10 +32,10 @@ function HandConvert()
 {
   for (let i = 0; i < cards.length; i++)
   {
-    if (cards[i].value.localeCompare("JACK")) cards[i].value = "11";
-    else if (cards[i].value.localeCompare("QUEEN")) cards[i].value = "12";
-    else if (cards[i].value.localeCompare("KING")) cards[i].value = "13";
-    else if (cards[i].value.localeCompare("ACE")) cards[i].value = "14";
+    if (cards[i].value == "JACK") cards[i].value = "11";
+    else if (cards[i].value == "QUEEN") cards[i].value = "12";
+    else if (cards[i].value == "KING") cards[i].value = "13";
+    else if (cards[i].value == "ACE") cards[i].value = "14";
   }
 }
 
@@ -48,7 +48,7 @@ function CheckHand()
   let handMsgs = ["royal flush", "straight flush", "four of a kind", "full house", "flush", "straight", "three of a kind", "two pair", "one pair"];
   let hands= [0, 0, 0, 0, 0, 0, 0, 0, 0];
   /*
-  0 = royal flush
+  0 = royal flush           `
   1 = straight flush        `
   2 = four of a kind        `
   3 = full house            `
@@ -62,25 +62,26 @@ function CheckHand()
   cards.sort();
 
   //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
-  for (let i = 1; i < cards.length; i++)
+  for (let i = 0; i < cards.length-1; i++)
   {
-    if (hands.cards[i].value == hands.cards[i-1].value)
+    if (cards[i].value == cards[i+1].value)
     {
-      if (i<cards.length-2 && (hands.cards[i].value == hands.cards[i+2].value))
+      if (i<cards.length-3 && cards[i].value == cards[i+3].value && cards[i].value == cards[i+2].value)
       {
         hands[2]++;
-        i+=3;
+        i+=4;
       }
-      else if (i<cards.length-1 && (hands.cards[i].value == hands.cards[i+1].value))
+      else if (i<cards.length-2 && cards[i].value == cards[i+2].value)
       {
         hands[7]++;
-        i+=2;
+        i+=3;
       }
       else
       {
         hands[9]++;
-        i++;
+        i+=2;
       }
+      i++;
     }
   }
 
@@ -89,8 +90,8 @@ function CheckHand()
   if (hands[9] == 1 && hands[7] == 1) //checking for FULL HOUSE
     hands[3]++;
 
-  if (parseInt(hands.cards[4].value)==parseInt(hands.cards[3].value)+1 && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1 && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1 && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
-  else if (parseInt(hands.cards[4].value)==13 && parseInt(hands.cards[0].value)==2 && parseInt(hands.cards[3].value)==parseInt(hands.cards[2].value)+1 && parseInt(hands.cards[2].value)==parseInt(hands.cards[1].value)+1 && parseInt(hands.cards[1].value)==parseInt(hands.cards[0].value)+1) hands[5]++;
+  if (parseInt(cards[4].value)==parseInt(cards[3].value)+1 && parseInt(cards[3].value)==parseInt(cards[2].value)+1 && parseInt(cards[2].value)==parseInt(cards[1].value)+1 && parseInt(cards[1].value)==parseInt(cards[0].value)+1) hands[5]++;
+  else if (parseInt(cards[4].value)==13 && parseInt(cards[0].value)==2 && parseInt(cards[3].value)==parseInt(cards[2].value)+1 && parseInt(cards[2].value)==parseInt(cards[1].value)+1 && parseInt(cards[1].value)==parseInt(cards[0].value)+1) hands[5]++;
   //checks for straight
 
   if (cards[0].suit.localeCompare(cards[1].suit)==0 && cards[0].suit.localeCompare(cards[2].suit)==0 && cards[0].suit.localeCompare(cards[3].suit)==0 && cards[0].suit.localeCompare(cards[4].suit)==0) hands[4]++;
@@ -98,7 +99,7 @@ function CheckHand()
 
   if (hands[5]>0 && hands[4]>0) hands[1]++; //checks for straught flush
 
-  if (hands[1]>0 && parseInt(hands.cards[0].value)==10) hands[0]++; //checks for royal flush
+  if (hands[1]>0 && parseInt(cards[0].value)==10) hands[0]++; //checks for royal flush
 
 
   for (let i = 0; i < hands.length; i++)
@@ -112,4 +113,11 @@ function CheckHand()
     }
   }
   if (hasHand==0) msg.innerText = "You lost :(";
+
+  let txt = "";
+  for (let i = 0; i < hands.length; i++)
+  {
+    txt += hands[i] + " ";
+  }
+  document.getElementById('hands').innerText = txt;
 }
