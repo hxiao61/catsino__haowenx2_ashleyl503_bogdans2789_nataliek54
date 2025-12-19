@@ -44,3 +44,6 @@ Worked on CSS of blackjack, made it work and resized correct. Worked on logic fo
 
 HaowenX -- 2025-12-18 11:44
 Blackjack updates your balance, poker is being worked on. roulette is getting many buttons and working on the center of the screen
+
+NatalieK -- 2025-12-19 11:42
+Ashley almost done with roulette, Haowen fixing blackjack, Bogdan working on poker, I fixed the leaderboard issue
