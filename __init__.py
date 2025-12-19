@@ -295,6 +295,19 @@ def slots():
     db.close()
     return render_template('slots.html', won=data[0][0])
 
+@app.route('/rl', methods=["GET", "POST"])
+def rl():
+    if not 'u_rowid' in session:
+        return redirect("/login")
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
+    c.execute(query)
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return render_template('rl.html', won=data[0][0])
+
 @app.route('/addtuna', methods=['POST'])
 def addtuna():
     db = sqlite3.connect(DB_FILE)
@@ -316,12 +329,14 @@ def addtuna():
     data = c.fetchall()
     db.commit()
     db.close()
+    print(data)
     return data
-
 
 @app.route('/sound')
 def sound():
     return send_file('cha-ching.mp3')
+
+
 
 # HELPER FUNCTIONS
 def fetch(table, criteria, data):

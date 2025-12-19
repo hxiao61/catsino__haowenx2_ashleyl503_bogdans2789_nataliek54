@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>😼 Catsino: Roulette!</title>
+    <link rel='stylesheet' href='../static/css/rl.css'>
+</head>
+
+<body>
+  <h1> Catsino: Roulette! </h1>
+  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.888casino.com%2Fblog%2Fsites%2Fnewblog.888casino.com%2Ffiles%2Finline-images%2Famerican-roulette-wheel_0.jpg&f=1&nofb=1&ipt=09dee538632d4a8f5c322160856db93142dd36cf060f8392444916503e58571d" class="center"></img>
+
+  <div class="center1">
+    <button class="button" id="one">1 to 18</button>
+    <button class="button" id="two">even</button>
+    <button class="button" id="three">red</button>
+    <button class="button" id="four" onclick="four()">black</button>
+    <button class="button" id="five" onclick="five()">odd</button>
+    <button class="button" id="six" onclick="six()">19 to 36</button>
+  </div>
+
+  <br></br>
+
+  <div class="container">
+    <div class="green">0</div>
+    <div class="red">3</div>
+    <div class="black">6</div>
+    <div class="red">9</div>
+    <div class="red">12</div>
+    <div class="black">15</div>
+    <div class="red">18</div>
+    <div class="red">21</div>
+    <div class="black">24</div>
+    <div class="red">27</div>
+    <div class="red">30</div>
+    <div class="black">33</div>
+    <div class="red">36</div>
+    <div class="green">0</div>
+    <div class="black">2</div>
+    <div class="red">5</div>
+    <div class="black">8</div>
+    <div class="black">11</div>
+    <div class="red">14</div>
+    <div class="black">17</div>
+    <div class="black">20</div>
+    <div class="red">23</div>
+    <div class="black">26</div>
+    <div class="black">29</div>
+    <div class="red">32</div>
+    <div class="black">35</div>
+    <div class="green">0</div>
+    <div class="red">1</div>
+    <div class="black">4</div>
+    <div class="red">7</div>
+    <div class="black">10</div>
+    <div class="black">13</div>
+    <div class="red">16</div>
+    <div class="red">19</div>
+    <div class="black">22</div>
+    <div class="red">25</div>
+    <div class="black">28</div>
+    <div class="black">31</div>
+    <div class="red">34</div>
+  </div>
+
+<div class="txt">Value Between 0 and 26</div>
+  <form action="/action_page.php">
+    <input type="number" id="quantity" name="quantity" min="0" max="36">
+    <input type="submit" value="submit">
+  </form>
+
+  <div class="spendtxt">
+    <p class="cost"> Cost to spin: 50 🐟  </p>
+    <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
+  </div>
+
+  <div class="win"> {x} , YOU WON!!! </div>
+
+  <div id="confetti" class="confetti"></div>
+  <script src='../static/js/rl.js'></script>
+
+</body>
+
+</html>
