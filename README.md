@@ -7,7 +7,7 @@
 
 **Haowen Xiao:** Project Manager, BlackJack
 
-**Natalie Keiger:** Slot Machines, Component Map
+**Natalie Keiger:** Slot Machines, Store, Component Map
 
 ## Project Descriptions
 Catsino is a gambling website where users can "Play to Win" with our internal currency, Tuna. 
