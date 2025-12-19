@@ -62,26 +62,25 @@ function CheckHand()
   cards.sort();
 
   //checking for ONE PAIRs, THREE OF A KIND and FOUR OF A KIND
-  for (let i = 0; i < cards.length-1; i++)
+  for (let i = 0; i < cards.length-2; i++)
   {
     if (cards[i].value == cards[i+1].value)
     {
-      if (i<cards.length-3 && cards[i].value == cards[i+3].value && cards[i].value == cards[i+2].value)
+      if (i<cards.length-4 && cards[i].value == cards[i+3].value && cards[i].value == cards[i+2].value)
       {
         hands[2]++;
-        i+=4;
+        i+=3;
       }
-      else if (i<cards.length-2 && cards[i].value == cards[i+2].value)
+      else if (i<cards.length-3 && cards[i].value == cards[i+2].value)
       {
         hands[7]++;
-        i+=3;
+        i+=2;
       }
       else
       {
         hands[9]++;
-        i+=2;
+        i++;
       }
-      i++;
     }
   }
 
@@ -115,7 +114,7 @@ function CheckHand()
   if (hasHand==0) msg.innerText = "You lost :(";
 
   let txt = "";
-  for (let i = 0; i < hands.length; i++)
+  for (let i = 0; i < 9; i++)
   {
     txt += hands[i] + " ";
   }
