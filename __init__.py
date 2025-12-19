@@ -15,13 +15,29 @@ db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS user_base(username TEXT, password TEXT, pfp TEXT, path TEXT, inv TEXT, cash INTEGER, wins INTEGER);")
-c.execute("INSERT INTO user_base VALUES('user', 'pass', 'pfp', '1', 'temp', 1000, 0);")
 
 c.execute("CREATE TABLE IF NOT EXISTS cats(id TEXT, img TEXT, cost INT);")
 
+def create_user(username, password):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT username FROM user_base")
+    list = [username[0] for username in c.fetchall()]
+    if not username in list:
+        # creates user in table
+        pfp = random.choice(pfps)
+        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 3000, 0)")
 
-db.commit()
-db.close()
+        # set path
+        c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")
+        c.execute(f"UPDATE user_base SET path = '/profile/{c.fetchall()[0][0]}' WHERE username=\'{username}\'")
+        db.commit()
+        db.close()
+        return True
+    db.commit()
+    db.close()
+    return False
+
 
 pfps = ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdo.lolwot.com%2Fwp-content%2Fuploads%2F2015%2F06%2F20-of-the-most-evil-cats-youll-ever-see-11.jpg&f=1&nofb=1&ipt=7b4168f197edce4122be7002d6d0ee88e9e9e73d0fd2ae603a2fcf147e98f723',
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F236x%2F40%2F09%2Ff1%2F4009f1324d775dd5c1f566282e3cc71c.jpg%3Fnii%3Dt&f=1&nofb=1&ipt=5cce8cff0671f80be2eb8c2ebf3bb21c956c71eeb29bba238ce238d6036b8046',
@@ -29,6 +45,16 @@ pfps = ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdo.lolwot.c
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F7a%2F22%2F88%2F7a22882b3f70fa099068f71716f32994.jpg&f=1&nofb=1&ipt=1232fbbb73aed544069044f0850d988d179abe20b7f4f443d256fe4244ff5f7b',
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Ffe%2F55%2F84%2Ffe55842fb719c1deed66398848b35c5c.jpg&f=1&nofb=1&ipt=8e7d7dd916eaf4f92ef8df464e751805a153e95c1c69e79638186ff4c1ab0ffd',
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.boredpanda.com%2Fblog%2Fwp-content%2Fuploads%2F2017%2F03%2FEvil-Cats-Demons-Summoning-Satan-102-58d0d5127832f__700.jpg&f=1&nofb=1&ipt=926a872dff64013519cef2372f2c0b86e25c72d035d90d74a8866f523607baae']
+
+#ensures that leaderboard works bc there are enough accounts
+create_user('ashley', 'ashley')
+create_user('nataliee', 'natalie')
+create_user('bogdan', 'bogdan')
+create_user('haowen', 'haowen')
+
+
+db.commit()
+db.close()
 
 # HTML PAGES
 # LANDING PAGE
@@ -40,7 +66,7 @@ def homepage():
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
         cash = fetch("user_base",f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
-        c.execute("DELETE FROM user_base WHERE cash<0;")
+        c.execute("DELETE FROM user_base WHERE cash < 0;")
         if (cash <= 0):
             session.pop("u_rowid", None)
             return redirect('/login')
@@ -50,6 +76,7 @@ def homepage():
         data = c.fetchall()
         db.commit()
         db.close()
+        print(data)
         if (len(data) > 4):
             leaderboard = [[1, data[0][2], data[0][0], data[0][6], data[0][3]],
                                 [2, data[1][2], data[1][0], data[1][6], data[1][3]],
@@ -84,7 +111,6 @@ def login():
     if 'u_rowid' in session:
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        c.execute("DELETE FROM user_base WHERE cash<0;")
         db.commit()
         db.close()
         return redirect("/")
@@ -283,7 +309,7 @@ def blj():
     db.commit()
     db.close()
     return render_template('blj.html', dealButton="", won=cash)
-
+abs
 @app.route('/slots')
 def slots():
     db = sqlite3.connect(DB_FILE)
@@ -302,7 +328,7 @@ def addtuna():
     tuna = request.args.get('num')
     won = request.args.get('win')
     cash = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
-    if (cash < abs(int(tuna))):
+    if (cash < -(int(tuna))):
         print('a')
         user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0]
         check_ban(user, '/addtuna?num=num&win=false')
@@ -335,25 +361,7 @@ def fetch(table, criteria, data):
     db.close()
     return data
 
-def create_user(username, password):
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    c.execute("SELECT username FROM user_base")
-    list = [username[0] for username in c.fetchall()]
-    if not username in list:
-        # creates user in table
-        pfp = random.choice(pfps)
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 3000, 0)")
 
-        # set path
-        c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")
-        c.execute(f"UPDATE user_base SET path = '/profile/{c.fetchall()[0][0]}' WHERE username=\'{username}\'")
-        db.commit()
-        db.close()
-        return True
-    db.commit()
-    db.close()
-    return False
 
 def update_pfp(pfp, u_rowid):
     db = sqlite3.connect(DB_FILE)
