@@ -26,11 +26,12 @@ def create_user(username, password):
     if not username in list:
         # creates user in table
         pfp = random.choice(pfps)
-        c.execute(f"INSERT INTO user_base VALUES(\'{username}\', \'{password}\', \'{pfp}\', 'temp', '', 3000, 0)")
+        c.execute("INSERT INTO user_base VALUES(?, ?, ?, 'temp', '', 3000, 0)", (username, password, pfp))
 
         # set path
-        c.execute(f"SELECT rowid FROM user_base WHERE username=\'{username}\'")
-        c.execute(f"UPDATE user_base SET path = '/profile/{c.fetchall()[0][0]}' WHERE username=\'{username}\'")
+        c.execute("SELECT rowid FROM user_base WHERE username=?", (username,))
+        rowid = c.fetchall()[0][0]
+        c.execute("UPDATE user_base SET path = ? WHERE username=?", (f'/profile/{rowid}', username))
         db.commit()
         db.close()
         return True
@@ -65,12 +66,18 @@ def homepage():
     else:
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        cash = fetch("user_base",f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
+        user_data = fetch("user_base", "ROWID=?", "cash", (session['u_rowid'][0],))
+        if not user_data:
+            session.pop("u_rowid", None)
+            return redirect('/login')
+        cash = user_data[0][0]
         c.execute("DELETE FROM user_base WHERE cash < 0;")
         if (cash <= 0):
             session.pop("u_rowid", None)
+            db.commit()
+            db.close()
             return redirect('/login')
-        query = f"SELECT * FROM user_base ORDER BY wins DESC LIMIT 5;"
+        query = "SELECT * FROM user_base ORDER BY wins DESC LIMIT 5;"
         c.execute(query)
         leaderboard = []
         data = c.fetchall()
@@ -85,8 +92,8 @@ def homepage():
                                 [5, data[4][2], data[4][0], data[4][6], data[4][3]]]
             print(data[0][3])
         if request.args.get('error') == 'storefail':
-            return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0], error='Store could not be loaded.')
-        return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0], tuna = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0], wins = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "wins")[0][0])
+            return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", "ROWID=?", "username", (session['u_rowid'][0],))[0][0], tuna = fetch("user_base", "ROWID=?", "cash", (session['u_rowid'][0],))[0][0], wins = fetch("user_base", "ROWID=?", "wins", (session['u_rowid'][0],))[0][0], error='Store could not be loaded.')
+        return render_template("home.html", leaderboard=leaderboard, user = fetch("user_base", "ROWID=?", "username", (session['u_rowid'][0],))[0][0], tuna = fetch("user_base", "ROWID=?", "cash", (session['u_rowid'][0],))[0][0], wins = fetch("user_base", "ROWID=?", "wins", (session['u_rowid'][0],))[0][0])
 
 # USER INTERACTIONS
 @app.route('/login', methods=["GET", "POST"])
@@ -99,15 +106,15 @@ def login():
                 error="Wrong &nbsp username &nbsp or &nbsp password!<br><br>",
                 normal=True)
         elif request.form['password'] != fetch("user_base",
-                                f"username = \"{request.form['username']}\"",
-                                "password")[0][0]:
+                                "username = ?",
+                                "password", (request.form['username'],))[0][0]:
                 return render_template("login.html",
                     error="Wrong &nbsp username &nbsp or &nbsp password!<br><br>",
                     normal=True)
         else:
             session["u_rowid"] = fetch("user_base",
-                                f"username = \"{request.form['username']}\"",
-                                "rowid")[0]
+                                "username = ?",
+                                "rowid", (request.form['username'],))[0]
     if 'u_rowid' in session:
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
@@ -122,13 +129,14 @@ def store():
 
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-        c.execute(query)
+        query = "SELECT cash FROM user_base WHERE rowid=?;"
+        c.execute(query, (session['u_rowid'][0],))
         cash = c.fetchall()[0][0]
         if (int(cash) > 50):
-            query = f"UPDATE user_base SET cash = cash - 50 WHERE rowid={session['u_rowid'][0]}"
-            c.execute(query)
+            query = "UPDATE user_base SET cash = cash - 50 WHERE rowid=?"
+            c.execute(query, (session['u_rowid'][0],))
         else:
+            db.close()
             return redirect('/store')
         db.commit()
         db.close()
@@ -141,8 +149,8 @@ def store():
 
                 db = sqlite3.connect(DB_FILE)
                 c = db.cursor()
-                query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-                c.execute(query)
+                query = "SELECT cash FROM user_base WHERE rowid=?;"
+                c.execute(query, (session['u_rowid'][0],))
                 data = int(c.fetchall()[0][0])
                 nums = [random.randrange(500, 3000), random.randrange(500, 3000), random.randrange(500, 3000)]
                 resp2 = resp2.read().decode()
@@ -174,17 +182,17 @@ def buy():
     if request.method == 'POST':
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        query = f"SELECT inv FROM user_base WHERE rowid={session['u_rowid'][0]};"
+        query = "SELECT inv FROM user_base WHERE rowid=?;"
         id = request.args['id']
-        query = f"UPDATE user_base SET inv = inv || ' ' || \'{id}\' WHERE rowid={session['u_rowid'][0]};" #adds cat name to inventory
-        c.execute(query)
-        query = f"INSERT INTO cats VALUES(\'{request.args['id']}\', \'{request.args['img']}\', {request.args['cost']});" #adds cat with name and link to db to be accessed later
-        c.execute(query)
-        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-        c.execute(query)
+        query = "UPDATE user_base SET inv = inv || ' ' || ? WHERE rowid=?;" #adds cat name to inventory
+        c.execute(query, (id, session['u_rowid'][0]))
+        query = "INSERT INTO cats VALUES(?, ?, ?);" #adds cat with name and link to db to be accessed later
+        c.execute(query, (request.args['id'], request.args['img'], request.args['cost']))
+        query = "SELECT cash FROM user_base WHERE rowid=?;"
+        c.execute(query, (session['u_rowid'][0],))
         cash = c.fetchall()[0][0]
-        query = f"UPDATE user_base SET cash = cash - {request.args['cost']};" #takes money
-        c.execute(query)
+        query = "UPDATE user_base SET cash = cash - ?;" #takes money
+        c.execute(query, (request.args['cost'],))
         db.commit()
         db.close()
     return redirect('/store')
@@ -223,8 +231,8 @@ def profile(u_rowid):
         return redirect("/login")
 
     u_data = fetch('user_base',
-                   f"ROWID={u_rowid}",
-                   'username, pfp')[0]
+                   "ROWID=?",
+                   'username, pfp', (u_rowid,))[0]
     # pfp editing
     profcheck = False
 
@@ -251,12 +259,12 @@ def profile(u_rowid):
     #get cat list
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    inv_list = fetch("user_base", f"ROWID={u_rowid}", "inv")
+    inv_list = fetch("user_base", "ROWID=?", "inv", (u_rowid,))
     inv_list = inv_list[0][0].split()
     cat_list = []
     for cat in inv_list:
-        query = f"SELECT * FROM cats WHERE id=\'{cat}\';"
-        c.execute(query)
+        query = "SELECT * FROM cats WHERE id=?;"
+        c.execute(query, (cat,))
         cats = c.fetchall()
         if not (len(cats) == 0):
                 cat_list.append(list(cats[0]))
@@ -268,8 +276,8 @@ def profile(u_rowid):
         pfp=u_data[1],
         pfps=pfps,
         edit=edit,
-        balance=fetch("user_base", f"ROWID={u_rowid}", "cash")[0][0],
-        wins=fetch("user_base", f"ROWID={u_rowid}", "wins")[0][0],
+        balance=fetch("user_base", "ROWID=?", "cash", (u_rowid,))[0][0],
+        wins=fetch("user_base", "ROWID=?", "wins", (u_rowid,))[0][0],
         inventory = cat_list)
 
 @app.route('/poker', methods=['GET', 'POST'])
@@ -277,13 +285,14 @@ def poker():
     if request.method == 'POST':
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-        c.execute(query)
+        query = "SELECT cash FROM user_base WHERE rowid=?;"
+        c.execute(query, (session['u_rowid'][0],))
         cash = c.fetchall()[0][0]
         if (int(cash) >= int(request.form['theBet'])):
-            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
-            c.execute(query)
+            query = "UPDATE user_base SET cash = cash - ? WHERE rowid=?"
+            c.execute(query, (request.form['theBet'], session['u_rowid'][0]))
         else:
+            db.close()
             return redirect('/poker')
         db.commit()
         db.close()
@@ -294,14 +303,15 @@ def poker():
 def blj():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]};"
-    c.execute(query)
+    query = "SELECT cash FROM user_base WHERE rowid=?;"
+    c.execute(query, (session['u_rowid'][0],))
     cash = c.fetchall()[0][0]
     if request.method == 'POST':
         if (int(cash) >= int(request.form['theBet'])):
-            query = f"UPDATE user_base SET cash = cash - {request.form['theBet']} WHERE rowid={session['u_rowid'][0]}"
-            c.execute(query)
+            query = "UPDATE user_base SET cash = cash - ? WHERE rowid=?"
+            c.execute(query, (request.form['theBet'], session['u_rowid'][0]))
         else:
+            db.close()
             return redirect('/blj')
         db.commit()
         db.close()
@@ -309,13 +319,13 @@ def blj():
     db.commit()
     db.close()
     return render_template('blj.html', dealButton="", won=cash)
-abs
+
 @app.route('/slots')
 def slots():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
-    c.execute(query)
+    query = "SELECT cash FROM user_base WHERE rowid=?"
+    c.execute(query, (session['u_rowid'][0],))
     data = c.fetchall()
     db.commit()
     db.close()
@@ -327,8 +337,8 @@ def rl():
         return redirect("/login")
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
-    c.execute(query)
+    query = "SELECT cash FROM user_base WHERE rowid=?"
+    c.execute(query, (session['u_rowid'][0],))
     data = c.fetchall()
     db.commit()
     db.close()
@@ -340,18 +350,18 @@ def addtuna():
     c = db.cursor()
     tuna = request.args.get('num')
     won = request.args.get('win')
-    cash = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "cash")[0][0]
+    cash = fetch("user_base", "ROWID=?", "cash", (session['u_rowid'][0],))[0][0]
     if (cash < -(int(tuna))):
         print('a')
-        user = fetch("user_base", f"ROWID={session['u_rowid'][0]}", "username")[0][0]
+        user = fetch("user_base", "ROWID=?", "username", (session['u_rowid'][0],))[0][0]
         check_ban(user, '/addtuna?num=num&win=false')
     if won == 'true':
-        query = f"UPDATE user_base SET wins = wins + 1 where rowid = {session['u_rowid'][0]}"
-        c.execute(query)
-    query = f"UPDATE user_base SET cash = cash + {tuna} where rowid = {session['u_rowid'][0]}"
-    c.execute(query)
-    query = f"SELECT cash FROM user_base WHERE rowid={session['u_rowid'][0]}"
-    c.execute(query)
+        query = "UPDATE user_base SET wins = wins + 1 where rowid = ?"
+        c.execute(query, (session['u_rowid'][0],))
+    query = "UPDATE user_base SET cash = cash + ? where rowid = ?"
+    c.execute(query, (tuna, session['u_rowid'][0]))
+    query = "SELECT cash FROM user_base WHERE rowid=?"
+    c.execute(query, (session['u_rowid'][0],))
     data = c.fetchall()
     db.commit()
     db.close()
@@ -363,12 +373,12 @@ def sound():
     return send_file('cha-ching.mp3')
 
 # HELPER FUNCTIONS
-def fetch(table, criteria, data):
+def fetch(table, criteria, data, params=()):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     query = f"SELECT {data} FROM {table} WHERE {criteria};"
     print(query)
-    c.execute(query)
+    c.execute(query, params)
     data = c.fetchall()
     db.commit()
     db.close()
@@ -379,14 +389,14 @@ def fetch(table, criteria, data):
 def update_pfp(pfp, u_rowid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute(f"UPDATE user_base SET pfp = \'{pfp}\' WHERE ROWID=\'{u_rowid}\'")
+    c.execute("UPDATE user_base SET pfp = ? WHERE ROWID=?", (pfp, u_rowid))
     db.commit()
     db.close()
 
 def update_password(pw, username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute(f"UPDATE user_base SET password = \'{pw}\' WHERE username=\'{username}\'")
+    c.execute("UPDATE user_base SET password = ? WHERE username=?", (pw, username))
     db.commit()
     db.close()
 
@@ -397,23 +407,23 @@ def update_inv(user, cashUpdt, newCash, invUpdt, newItem):
 #1 indicates addition of cash or item
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    curCash = fetch("user_base", f"ROWID={user}", "cash")[0][0]+newCash*cashUpdt
-    curInv = fetch("user_base", f"ROWID={user}", "inv")[0][0]
+    curCash = fetch("user_base", "ROWID=?", "cash", (user,))[0][0]+newCash*cashUpdt
+    curInv = fetch("user_base", "ROWID=?", "inv", (user,))[0][0]
     if (invUpdt==1):
         curInv += f", {newItem}"
     elif (invUpdt==-1):
         curInv = curInv.replace(f"{newItem}, ", "")
-    c.execute(f"UPDATE user_base SET cash = \'{curCash}\' WHERE username=\'{user}\'")
-    c.execute(f"UPDATE user_base SET inv = \'{curInv}\' WHERE username=\'{user}\'")
+    c.execute("UPDATE user_base SET cash = ? WHERE username=?", (curCash, user))
+    c.execute("UPDATE user_base SET inv = ? WHERE username=?", (curInv, user))
     db.commit()
     db.close()
 
 def check_ban(username, original_link):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    curCash = fetch("user_base", f"username={user}", "cash")[0][0]
+    curCash = fetch("user_base", "username=?", "cash", (username,))[0][0]
     if (curCash <= 0):
-        c.execute(f"DELETE FROM user_base WHERE username='{username}';")
+        c.execute("DELETE FROM user_base WHERE username=?;", (username,))
         db.commit()
         db.close()
         return redirect('/login')
