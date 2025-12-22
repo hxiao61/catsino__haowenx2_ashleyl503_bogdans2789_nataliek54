@@ -9,6 +9,24 @@
     <link rel='stylesheet' href='../static/css/rl.css'>
 </head>
 
+<div class="navbar">
+  <div class='nav'>
+    <a href='/'> CATSINO </a>
+  </div>
+  <div class="nav">
+    <a href='/'> Home </a>
+  </div>
+  <div class="nav">
+    <a href="/store"> Store </a>
+  </div>
+  <div class="nav">
+    <a href="/profile"> Profile </a>
+  </div>
+  <div class="nav">
+    <a href="/logout"> Log Out </a>
+  </div>
+</div>
+
 <body>
   <h1> Catsino: Roulette! </h1>
   <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.888casino.com%2Fblog%2Fsites%2Fnewblog.888casino.com%2Ffiles%2Finline-images%2Famerican-roulette-wheel_0.jpg&f=1&nofb=1&ipt=09dee538632d4a8f5c322160856db93142dd36cf060f8392444916503e58571d" class="center"></img>
@@ -17,6 +35,16 @@
   <div class="center1">
     <div> To play, press a button to place a bet. </div>
     <div> To bet on a specific number, press the desired number within the table. </div>
+    <br></br>
+    <div> Betting on range/divisibility by 2/color: 150 🐟 </div>
+    <div> Betting on number: 300 🐟 </div>
+    <br></br>
+    <div class="spendtxt">
+      <p class="cost"> Cost to spin: 100 🐟  </p>
+      <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
+    </div>
+
+    <div id="message"> </div>
     <br></br>
     <button class="button" id="one" onclick="one()">1 to 18</button>
     <button class="button" id="two" onclick="two()">even</button>
@@ -76,12 +104,6 @@
     <input type="submit" value="submit">
   </form> -->
 
-  <div class="spendtxt">
-    <p class="cost"> Cost to spin: 50 🐟  </p>
-    <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
-  </div>
-
-  <div id="message"> </div>
 
   <div id="confetti" class="confetti"></div>
   <script src='../static/js/rl.js'></script>

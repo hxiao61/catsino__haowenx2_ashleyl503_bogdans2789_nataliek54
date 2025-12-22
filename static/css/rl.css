@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: #295E1E;
   font-family: 'monospace';
@@ -7,6 +13,32 @@ img {
   width: 20%;
   border-radius: 50%;
 }
+
+/* NAV BAR STUFF */
+
+.navbar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  font-size: 20px;
+  align-items: center;
+  list-style-type: none;
+  background-color: #1c1a1a;
+  align-self: center;
+}
+
+.nav {
+  float: top;
+  overflow: hidden;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.nav a {
+  color: #EDEDE9;
+  text-decoration: none;
+}
+
+/* END NAV BAR STUFF */
 
 .gametable {
   width: 300px;
