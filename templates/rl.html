@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>😼 Catsino: Roulette!</title>
+    <link rel='stylesheet' href='../static/css/rl.css'>
+</head>
+
+<div class="navbar">
+  <div class='nav'>
+    <a href='/'> CATSINO </a>
+  </div>
+  <div class="nav">
+    <a href='/'> Home </a>
+  </div>
+  <div class="nav">
+    <a href="/store"> Store </a>
+  </div>
+  <div class="nav">
+    <a href="/profile"> Profile </a>
+  </div>
+  <div class="nav">
+    <a href="/logout"> Log Out </a>
+  </div>
+</div>
+
+<body>
+  <h1> Catsino: Roulette! </h1>
+  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.888casino.com%2Fblog%2Fsites%2Fnewblog.888casino.com%2Ffiles%2Finline-images%2Famerican-roulette-wheel_0.jpg&f=1&nofb=1&ipt=09dee538632d4a8f5c322160856db93142dd36cf060f8392444916503e58571d" class="center"></img>
+
+
+  <div class="center1">
+    <div> To play, press a button to place a bet. </div>
+    <div> To bet on a specific number, press the desired number within the table. </div>
+    <br></br>
+    <div> Betting on range/divisibility by 2/color: 150 🐟 </div>
+    <div> Betting on number: 300 🐟 </div>
+    <br></br>
+    <div class="spendtxt">
+      <p class="cost"> Cost to spin: 100 🐟  </p>
+      <p class="cost" > Current amount: <span id="balance">{{won}}</span> 🐟 </p>
+    </div>
+
+    <div id="message"> </div>
+    <br></br>
+    <button class="button" id="one" onclick="one()">1 to 18</button>
+    <button class="button" id="two" onclick="two()">even</button>
+    <button class="button" id="three" onclick="three()">red</button>
+    <button class="button" id="four" onclick="four()">black</button>
+    <button class="button" id="five" onclick="five()">odd</button>
+    <button class="button" id="six" onclick="six()">19 to 36</button>
+  </div>
+
+  <br></br>
+
+  <div class="container">
+    <div class="button0" onclick="n0()">0</div>
+    <div class="button3" onclick="n3()">3</div>
+    <div class="button6" onclick="n6()">6</div>
+    <div class="button9" onclick="n9()">9</div>
+    <div class="button12" onclick="n12()">12</div>
+    <div class="button15" onclick="n15()">15</div>
+    <div class="button18" onclick="n18()">18</div>
+    <div class="button21" onclick="n21()">21</div>
+    <div class="button24" onclick="n24()">24</div>
+    <div class="button27" onclick="n27()">27</div>
+    <div class="button30" onclick="n30()">30</div>
+    <div class="button33" onclick="n33()">33</div>
+    <div class="button36" onclick="n36()">36</div>
+    <div class="button0" onclick="n0()">0</div>
+    <div class="button2" onclick="n2()">2</div>
+    <div class="button5" onclick="n5()">5</div>
+    <div class="button8" onclick="n8()">8</div>
+    <div class="button11" onclick="n11()">11</div>
+    <div class="button14" onclick="n14()">14</div>
+    <div class="button17" onclick="n17()">17</div>
+    <div class="button20" onclick="n20()">20</div>
+    <div class="button23" onclick="n23()">23</div>
+    <div class="button26" onclick="n26()">26</div>
+    <div class="button29" onclick="n29()">29</div>
+    <div class="button32" onclick="n32()">32</div>
+    <div class="button35" onclick="n35()">35</div>
+    <div class="button0" onclick="n0()">0</div>
+    <div class="button1" onclick="n1()">1</div>
+    <div class="button4" onclick="n4()">4</div>
+    <div class="button7" onclick="n7()">7</div>
+    <div class="button10" onclick="n10()">10</div>
+    <div class="button13" onclick="n13()">13</div>
+    <div class="button16" onclick="n16()">16</div>
+    <div class="button19" onclick="n19()">19</div>
+    <div class="button22" onclick="n22()">22</div>
+    <div class="button25" onclick="n25()">25</div>
+    <div class="button28" onclick="n28()">28</div>
+    <div class="button31" onclick="n31()">31</div>
+    <div class="button34" onclick="n34()">34</div>
+  </div>
+
+<!-- <div class="txt">Value Between 0 and 26</div>
+  <form action="/action_page.php">
+    <input type="number" id="quantity" name="quantity" min="0" max="36">
+    <input type="submit" value="submit">
+  </form> -->
+
+
+  <div id="confetti" class="confetti"></div>
+  <script src='../static/js/rl.js'></script>
+
+</body>
+
+</html>

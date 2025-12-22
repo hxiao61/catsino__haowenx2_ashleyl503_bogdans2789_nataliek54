@@ -1,0 +1,451 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #295E1E;
+  font-family: 'monospace';
+}
+
+img {
+  width: 20%;
+  border-radius: 50%;
+}
+
+/* NAV BAR STUFF */
+
+.navbar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  font-size: 20px;
+  align-items: center;
+  list-style-type: none;
+  background-color: #1c1a1a;
+  align-self: center;
+}
+
+.nav {
+  float: top;
+  overflow: hidden;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.nav a {
+  color: #EDEDE9;
+  text-decoration: none;
+}
+
+/* END NAV BAR STUFF */
+
+.gametable {
+  width: 300px;
+  border: 15px solid green;
+  margin: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto;
+  background-color: white;
+  padding: 5px;
+}
+
+.green {
+  background-color: #255e35;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.black {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.red {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.button:active {
+  box-shadow: 0 6px #000000;
+  transform: translateY(4px);
+}
+
+form [type=number] {
+  width: 10%;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+form [type=submit] {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 10px;
+ }
+
+ .center {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 20%;
+ }
+
+ .center1 {text-align: center;}
+
+.button0 {
+  background-color: #255e35;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button0:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button1 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button1:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button2 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button2:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button3 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button3:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button4 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button4:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button5 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button5:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button6 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button6:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button7 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button7:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button8 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button8:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button9 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button9:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button10 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button10:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button11 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button11:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button12 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button12:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button13 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button13:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button14 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button14:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button15 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button15:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button16 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button16:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button17 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button17:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button18 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button18:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button19 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button19:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button20 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button20:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button21 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button21:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button22 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button22:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button23 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button23:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button24 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button24:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button25 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button25:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button26 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button26:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button27 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button27:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button28 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button28:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button29 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button29:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button30 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button30:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button31 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button31:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button32 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button32:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button33 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button33:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button34 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button34:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button35 {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button35:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
+
+.button36 {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+} .button36:hover {box-shadow:0 8px 16px 0 rgba(0,0,0,100)}
